@@ -24,23 +24,23 @@
         }
       },
       "abilities": {
-        "str": {
-          "value": 10
+        "body": {
+          "value": 1
         },
-        "dex": {
-          "value": 10
+        "sense": {
+          "value": 1
         },
-        "con": {
-          "value": 10
+        "charm": {
+          "value": 1
         },
-        "int": {
-          "value": 10
+        "coord": {
+          "value": 1
         },
-        "wis": {
-          "value": 10
+        "comm": {
+          "value": 1
         },
-        "cha": {
-          "value": 10
+        "know": {
+          "value": 1
         }
       }
     }
