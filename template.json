@@ -23,26 +23,109 @@
           "value": 1
         }
       },
-      "abilities": {
-        "body": {
-          "value": 1
-        },
-        "sense": {
-          "value": 1
-        },
-        "charm": {
-          "value": 1
-        },
-        "coord": {
-          "value": 1
-        },
-        "comm": {
-          "value": 1
-        },
-        "know": {
-          "value": 1
-        }
+      "stats": [
+     {
+        "name": "Body",
+        "value": 1,
+        "min": 1,
+        "max": 5,
+        "skills": [
+          {
+            "athletics": 0,
+            "endurance": 0,
+            "fight": 0,
+            "parry": 0,
+            "run": 0,
+            "vigor": 0,
+            "min": 0,
+            "max": 10
+          }
+         ]
+      },
+      {
+        "name": "Sense",
+        "value": 1,
+        "min": 1,
+        "max": 5,
+        "skills": [
+          {
+            "direction": 0,
+            "empathy": 0,
+            "hearing": 0,
+            "scrutinize": 0,
+            "sight": 0,
+            "min": 0,
+            "max": 10
+          }
+         ]
+      },
+      {
+        "name": "Charm",
+        "value": 1,
+        "min": 1,
+        "max": 5,
+        "skills": [
+          {
+            "fascinate": 0,
+            "graces": 0,
+            "lie": 0,
+            "jest": 0,
+            "plead": 0,
+            "min": 0,
+            "max": 10
+          }
+        ]
+      },
+      {
+        "name": "Coordination",
+        "value": 1,
+        "min": 1,
+        "max": 5,
+        "skills": [
+          {
+            "climb": 0,
+            "dodge": 0,
+            "perform": 0,
+            "ride": 0,
+            "stealth": 0,
+            "min": 0,
+            "max": 10
+          }
+        ]
+      },
+      {
+        "name": "Command",
+        "value": 1,
+        "min": 1,
+        "max": 5,
+        "skills": [
+          {
+            "haggle": 0,
+            "inspire": 0,
+            "intimidate": 0,
+            "perform": 0,
+            "min": 0,
+            "max": 10
+          }
+        ]
+      },
+      {
+        "name": "Knowledge",
+        "value": 1,
+        "min": 1,
+        "max": 5,
+        "skills": [
+          {
+            "healing": 0,
+            "lore": 0,
+            "strategy": 0,
+            "tactics": 0,
+            "min": 0,
+            "max": 10
+          }
+        ]
       }
+    ]
     }
   },
   "Item": {
