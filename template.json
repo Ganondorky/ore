@@ -29,14 +29,14 @@
            "value": 1,
            "max": 5,
            "min": 1,
-           "hasSubskill": true,
+           "hasSubskills": true,
            "skills": [
             {
               "name": "Athletics",
               "value": 0,
               "min": 1,
               "max": 10,
-              "hasSubskill": false,
+              "hasSubskills": false,
               "ed": false,
               "md": false
             },
@@ -45,7 +45,7 @@
               "value": 0,
               "min": 1,
               "max": 10,
-              "hasSubskill": false,
+              "hasSubskills": false,
               "ed": false,
               "md": false
             },
@@ -54,7 +54,7 @@
               "value": 0,
               "min": 1,
               "max": 10,
-              "hasSubskill": false,
+              "hasSubskills": false,
               "ed": false,
               "md": false
             },            {
@@ -62,7 +62,7 @@
               "value": 0,
               "min": 1,
               "max": 10,
-              "hasSubskill": false,
+              "hasSubskills": false,
               "ed": false,
               "md": false
             },            {
@@ -70,7 +70,7 @@
               "value": 0,
               "min": 1,
               "max": 10,
-              "hasSubskill": false,
+              "hasSubskills": false,
               "ed": false,
               "md": false
             },
@@ -79,12 +79,9 @@
               "value": 0,
               "min": 1,
               "max": 10,
-              "hasSubskill": false,
+              "hasSubskills": false,
               "ed": false,
               "md": false
-            },
-            {
-              "subskill": {}
             }
            ]
       },
@@ -93,14 +90,14 @@
           "value": 1,
           "max": 5,
           "min": 1,
-          "hasSubskill": true,
+          "hasSubskills": true,
           "skills": [
            {
              "name": "Direction",
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -109,7 +106,7 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -118,7 +115,7 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -127,7 +124,7 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -136,12 +133,9 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
-           },
-           {
-             "subskill": {}
            }
           ]
       },
@@ -150,14 +144,14 @@
          "value": 1,
          "max": 5,
          "min": 1,
-         "hasSubskill": true,
+         "hasSubskills": true,
          "skills": [
           {
             "name": "Fascinate",
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -166,7 +160,7 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -175,7 +169,7 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -184,7 +178,7 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -193,12 +187,9 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
-          },
-          {
-            "subskill": {}
           }
          ]
       },
@@ -207,14 +198,14 @@
         "value": 1,
         "max": 5,
         "min": 1,
-        "hasSubskill": true,
+        "hasSubskills": true,
         "skills": [
          {
            "name": "Climb",
            "value": 0,
            "min": 1,
            "max": 10,
-           "hasSubskill": false,
+           "hasSubskills": false,
            "ed": false,
            "md": false
          },
@@ -223,7 +214,7 @@
            "value": 0,
            "min": 1,
            "max": 10,
-           "hasSubskill": false,
+           "hasSubskills": false,
            "ed": false,
            "md": false
          },
@@ -232,7 +223,7 @@
            "value": 0,
            "min": 1,
            "max": 10,
-           "hasSubskill": true,
+           "hasSubskills": true,
            "ed": false,
            "md": false,
            "subskill": {}
@@ -242,7 +233,7 @@
            "value": 0,
            "min": 1,
            "max": 10,
-           "hasSubskill": false,
+           "hasSubskills": false,
            "ed": false,
            "md": false
          },
@@ -251,7 +242,7 @@
            "value": 0,
            "min": 1,
            "max": 10,
-           "hasSubskill": false,
+           "hasSubskills": false,
            "ed": false,
            "md": false
          },
@@ -260,7 +251,7 @@
            "value": 0,
            "min": 1,
            "max": 10,
-           "hasSubskill": true,
+           "hasSubskills": true,
            "ed": false,
            "md": false,
            "subskill": {}
@@ -272,14 +263,14 @@
           "value": 1,
           "max": 5,
           "min": 1,
-          "hasSubskill": true,
+          "hasSubskills": true,
           "skills": [
            {
              "name": "Haggle",
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -288,7 +279,7 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -297,7 +288,7 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
            },
@@ -306,12 +297,9 @@
              "value": 0,
              "min": 1,
              "max": 10,
-             "hasSubskill": false,
+             "hasSubskills": false,
              "ed": false,
              "md": false
-           },
-           {
-             "subskill": {}
            }
           ]
       },
@@ -320,14 +308,14 @@
          "value": 1,
          "max": 5,
          "min": 1,
-         "hasSubskill": true,
+         "hasSubskills": true,
          "skills": [
           {
             "name": "Healing",
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -336,7 +324,7 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -345,7 +333,7 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -354,7 +342,7 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": false,
+            "hasSubskills": false,
             "ed": false,
             "md": false
           },
@@ -363,23 +351,19 @@
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": true,
+            "hasSubskillss": true,
             "ed": false,
             "md": false,
-            "subskill": {}
-          },
-          {
+            "subskills": {}
+          },          {
             "name": "Student",
             "value": 0,
             "min": 1,
             "max": 10,
-            "hasSubskill": true,
+            "hasSubskillss": true,
             "ed": false,
             "md": false,
-            "subskill": {}
-          },
-          {
-            "subskill": {}
+            "subskills": {}
           }
          ]
       }
