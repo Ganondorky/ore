@@ -1,6 +1,8 @@
 {
   "Actor": {
-    "types": ["character"],
+    "types": [
+      "character"
+    ],
     "templates": {
       "base": {
         "health": {
@@ -16,44 +18,352 @@
       }
     },
     "character": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "biography": "",
       "attributes": {
         "level": {
           "value": 1
         }
       },
-      "abilities": {
-        "body": {
-          "value": 1
+      "stats": [
+        {
+          "name": "Body",
+          "value": 1,
+          "max": 5,
+          "min": 1,
+          "skills": [
+            {
+              "name": "Athletics",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Endurance",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Fight",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Parry",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Run",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Vigor",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            }
+          ]
         },
-        "sense": {
-          "value": 1
+        {
+          "name": "Sense",
+          "value": 1,
+          "max": 5,
+          "min": 1,
+          "skills": [
+            {
+              "name": "Direction",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Empathy",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Hearing",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Scrutinize",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Sight",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            }
+          ]
         },
-        "charm": {
-          "value": 1
+        {
+          "name": "Charm",
+          "value": 1,
+          "max": 5,
+          "min": 1,
+          "skills": [
+            {
+              "name": "Fascinate",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Graces",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Lie",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Jest",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Plead",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            }
+          ]
         },
-        "coord": {
-          "value": 1
+        {
+          "name": "Coordination",
+          "value": 1,
+          "max": 5,
+          "min": 1,
+          "skills": [
+            {
+              "name": "Climb",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Dodge",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Perform",
+              "hasSubskills": true,
+              "subskill": {}
+            },
+            {
+              "name": "Ride",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Stealth",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Weapon",
+              "hasSubskills": true,
+              "subskills": {}
+            }
+          ]
         },
-        "comm": {
-          "value": 1
+        {
+          "name": "Command",
+          "value": 1,
+          "max": 5,
+          "min": 1,
+          "skills": [
+            {
+              "name": "Haggle",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Inspire",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Intimidate",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Perform",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            }
+          ]
         },
-        "know": {
-          "value": 1
+        {
+          "name": "Knowledge",
+          "value": 1,
+          "max": 5,
+          "min": 1,
+          "skills": [
+            {
+              "name": "Healing",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Lore",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Strategy",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Tactics",
+              "value": 0,
+              "min": 1,
+              "max": 10,
+              "hasSubskills": false,
+              "ed": false,
+              "md": false
+            },
+            {
+              "name": "Language",
+              "hasSubskills": true,
+              "subskills": {}
+            },
+            {
+              "name": "Student",
+              "hasSubskills": true,
+              "subskills": {}
+            }
+          ]
         }
-      }
+      ]
     }
   },
   "Item": {
-    "types": ["item"],
+    "types": [
+      "item"
+    ],
     "templates": {
       "base": {
         "description": ""
       }
     },
     "item": {
-      "templates": ["base"],
+      "templates": [
+        "base"
+      ],
       "quantity": 1,
       "weight": 0
     }
