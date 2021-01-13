@@ -93,15 +93,22 @@ export class OneRollEngineActorSheet extends ActorSheet {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
+    const roll = new Roll(`${parseInt(dataset.stat)+parseInt(dataset.skill)}d10`)
 
-    if (dataset.roll) {
-      let roll = new Roll(dataset.roll, this.actor.data.data);
-      let label = dataset.label ? `Rolling ${dataset.label}` : '';
-      roll.roll().toMessage({
-        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-        flavor: label
-      });
-    }
+    let label = dataset.label ? `Rolling ${dataset.label}` : '';
+    roll.roll().toMessage({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      flavor: label
+    })
+    // if (dataset.roll) {
+    //   let roll = new Roll(dataset.roll, this.actor.data.data);
+    //   let label = dataset.label ? `Rolling ${dataset.label}` : '';
+    //   roll.roll().toMessage({
+    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    //     flavor: label
+    //   });
+    //}
+
   }
 
 }

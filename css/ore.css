@@ -1,4 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap");
+.ml-1 {
+  margin-left: 5px;
+}
+
+.ml-2 {
+  margin-left: 10px;
+}
+
 /* Global styles */
 .window-app {
   font-family: "Roboto", sans-serif;
@@ -114,6 +122,11 @@
   justify-content: space-between;
 }
 
+.flex-self-start {
+  -ms-flex-item-align: start;
+  align-self: start;
+}
+
 /* Styles limited to ore sheets */
 .ore .item-form {
   font-family: "Roboto", sans-serif;
@@ -121,8 +134,8 @@
 
 .ore .sheet-header {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 210px;
-  flex: 0 0 210px;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
   overflow: hidden;
   display: -webkit-box;
   display: -ms-flexbox;
