@@ -1,0 +1,25 @@
+.collapse-parent, .collapse-body {
+  border-top: toRem(2px) solid color('primary');
+}
+
+.collapse-parent:last-child {
+  border-bottom: toRem(2px) solid color('primary');
+}
+
+.collapse-header, .collapse-body {
+  padding: $spacing-sm * 2;
+}
+
+.hide {
+  display: none;
+}
+
+@each $color, $hex in $colors {
+  .bkg-#{$color} {
+    background-color: $hex;
+  }
+
+  .text-#{$color} {
+    color: $hex;
+  }
+}

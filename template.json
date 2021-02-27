@@ -14,7 +14,6 @@
       ],
       "biography": "",
       "attributes": {
-        "name": "",
         "company": "",
         "mission": "",
         "duty": "",
@@ -31,7 +30,7 @@
             "athletics": {
               "name": "Athletics",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -40,7 +39,7 @@
             "endurance": {
               "name": "Endurance",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -49,7 +48,7 @@
             "fight": {
               "name": "Fight",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -58,7 +57,7 @@
             "parry": {
               "name": "Parry",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -67,7 +66,7 @@
             "run": {
               "name": "Run",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -76,7 +75,7 @@
             "vigor": {
               "name": "Vigor",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -93,7 +92,7 @@
             "direction": {
               "name": "Direction",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -102,7 +101,7 @@
             "empathy": {
               "name": "Empathy",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -111,7 +110,7 @@
             "hearing": {
               "name": "Hearing",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -120,7 +119,7 @@
             "scrutinize": {
               "name": "Scrutinize",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -129,7 +128,7 @@
             "sight": {
               "name": "Sight",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -146,7 +145,7 @@
             "fascinate": {
               "name": "Fascinate",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -155,7 +154,7 @@
             "graces": {
               "name": "Graces",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -164,7 +163,7 @@
             "lie": {
               "name": "Lie",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -173,7 +172,7 @@
             "jest": {
               "name": "Jest",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -182,7 +181,7 @@
             "plead": {
               "name": "Plead",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -199,7 +198,7 @@
             "climb": {
               "name": "Climb",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -208,21 +207,16 @@
             "dodge": {
               "name": "Dodge",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
               "md": false
             },
-            "perform": {
-              "name": "Perform",
-              "hasSubskills": true,
-              "subskill": {}
-            },
             "ride": {
               "name": "Ride",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -231,7 +225,7 @@
             "stealth": {
               "name": "Stealth",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -241,6 +235,11 @@
               "name": "Weapon",
               "hasSubskills": true,
               "subskills": {}
+            },
+            "perform": {
+              "name": "Perform",
+              "hasSubskills": true,
+              "subskill": {}
             }
           }
         },
@@ -253,7 +252,7 @@
             "haggle": {
               "name": "Haggle",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -262,7 +261,7 @@
             "inspire": {
               "name": "Inspire",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -271,7 +270,7 @@
             "intimidate": {
               "name": "Intimidate",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -280,7 +279,7 @@
             "perform": {
               "name": "Perform",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -297,7 +296,7 @@
             "healing": {
               "name": "Healing",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -306,7 +305,7 @@
             "lore": {
               "name": "Lore",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -315,7 +314,7 @@
             "strategy": {
               "name": "Strategy",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,
@@ -324,7 +323,7 @@
             "tactics": {
               "name": "Tactics",
               "value": 0,
-              "min": 1,
+              "min": 0,
               "max": 10,
               "hasSubskills": false,
               "ed": false,

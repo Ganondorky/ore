@@ -4,60 +4,60 @@
     <header class="sheet-header">
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
             {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
             use both the "grid" and "grid-Ncol" class where "N" can be any number
             from 1 to 12 and will create that number of columns.  --}}
-            <div class="resources grid grid-2col">
-              {{!-- "flex-group-center" is also defined in the _grid.scss file
-              and it will add a small amount of padding, a border, and will
-              center all of its child elements content and text. --}}
-              <div class="resource flex-group-center">
-                  <label for="data.health.value" class="resource-label">Health</label>
-                  <div class="resource-content flexrow flex-center flex-between">
-                    <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number"/>
-                    <span> / </span>
-                    <input type="text" name="data.health.max" value="{{data.health.max}}" data-dtype="Number"/>
-                  </div>
+            <div class="flex flex-wrap">
+              <div class="flex-col col-6">
+                <label class="text-primary">Name</label>
+                <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
               </div>
-              <div class="resource flex-group-center">
-                  <label for="data.power.value" class="resource-label">Power</label>
-                  <div class="resource-content flexrow flex-center flex-between">
-                    <input type="text" name="data.power.value" value="{{data.power.value}}" data-dtype="Number"/>
-                    <span> / </span>
-                    <input type="text" name="data.power.max" value="{{data.power.max}}" data-dtype="Number"/>
-                  </div>
+              {{#each data.attributes as |attribute name|}}
+              <div class="resource flex-col col-6">
+                <label for="data.attributes.{{name}}" class="text-primary text-capitalize">{{name}}</label>
+                <div>
+                  <input type="text" name="data.attributes.{{name}}" value="{{attribute}}"/>
+                </div>
               </div>
+              {{/each}}
           </div>
           {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
           use both the "grid" and "grid-Ncol" class where "N" can be any number
           from 1 to 12 and will create that number of columns.  --}}
-          <div class="stats">
-            {{#each data.stats as |stat statKey|}}
-              <div>
-                <div class="ability flexrow flex-group-center">
-                  <label for="data.stats.{{statKey}}.value" class="resource-label">{{statKey}}</label>
-                  <input type="text" name="data.stats.{{statKey}}.value" value="{{stat.value}}" data-dtype="Number"/>
-                </div>
-                <div class="ml-2">
-                  {{#each stat.skills as |skill skillKey|}}
-                      {{#unless skill.hasSubskills}}
-                        <div class="ability flexrow flex-group-center">
-                          <label for="data.stats.{{statKey}}.skills.{{skillKey}}.value" data-label="{{stat.name}} {{skill.name}}" data-stat="{{stat.value}}" data-skill="{{skill.value}}" class="rollable resource-label">{{skill.name}}</label>
-                          <input type="text" name="data.stats.{{statKey}}.skills.{{skillKey}}.value" value="{{skill.value}}" data-dtype="Number"/>
-                        </div>
-                      {{else}}
-                        <div class="ability flexrow">
-                          <label>{{skill.name}}</label>
-                        </div>
-                      {{/unless}}
-                  {{/each}}
-                </div>
-              </div>
+          
+    </header>
+
+    <div class="stats flex flex-wrap">
+      {{#each data.stats as |stat statKey|}}
+        <div class="flex-col col-4 my-4">
+          <div class="ability flex">
+            <label for="data.stats.{{statKey}}.value" class="resource-label flex-col col-9 text-secondary">{{statKey}}</label>
+            <div class="flex-col col-3 text-center">
+              <input type="text" name="data.stats.{{statKey}}.value" value="{{stat.value}}" data-dtype="Number"/>
+            </div>
+          </div>
+          <div>
+            {{#each stat.skills as |skill skillKey|}}
+                {{#unless skill.hasSubskills}}
+                  <div class="ability flex">
+                    <div class="flex-col col-9">
+                      <label for="data.stats.{{statKey}}.skills.{{skillKey}}.value" data-label="{{stat.name}} {{skill.name}}" data-stat="{{stat.value}}" data-skill="{{skill.value}}" class="rollable resource-label pl-2 text-primary">{{skill.name}}</label>
+                    </div>
+                    <div class="flex-col col-3 text-center">
+                      <input type="text" name="data.stats.{{statKey}}.skills.{{skillKey}}.value" value="{{skill.value}}" data-dtype="Number" min="1" max="10"/>
+                    </div>
+                  </div>
+                {{else}}
+                  <div class="ability flexrow">
+                    <label>{{skill.name}}</label>
+                  </div>
+                {{/unless}}
             {{/each}}
           </div>
         </div>
-    </header>
+      {{/each}}
+    </div>
+  </div>
 
     {{!-- Sheet Tab Navigation --}}
     <nav class="sheet-tabs tabs" data-group="primary">

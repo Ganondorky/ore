@@ -1,0 +1,57 @@
+.btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  width: auto;
+}
+
+@each $color, $hex in $colors {
+  .btn-#{$color} {
+    background-color: $hex;
+    color: color('white')
+  }
+}
+
+.btn-icon {
+  height: toRem(30px);
+  line-height: 0;
+  padding: toRem(8px);
+  text-align: center;
+  border-radius: 50%;
+  width: toRem(30px);
+
+  i.fa {
+    margin-right: 0;
+  }
+
+  &.btn-small {
+    font-size: toRem(10px);
+    height: toRem(16px);
+    padding: toRem(2px);
+    width: toRem(16px);
+  }
+}
+
+.btn-pp {
+  line-height: 0;
+  padding: 0;
+  border-radius: 50%;
+
+  img {
+    border: 0;
+    width: 4rem;
+  }
+}
+
+.btn-text {
+  line-height: 1;
+  padding: 0;
+  text-transform: inherit;
+}
+
+.add-trait-to-pool {
+  cursor: pointer;
+}
