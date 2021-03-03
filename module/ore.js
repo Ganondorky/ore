@@ -3,6 +3,7 @@ import { OneRollEngineActor } from "./actor/actor.js";
 import { OneRollEngineActorSheet } from "./actor/actor-sheet.js";
 import { OneRollEngineItem } from "./item/item.js";
 import { OneRollEngineItemSheet } from "./item/item-sheet.js";
+import { registerSettings } from "./settings/settings.js"
 
 Hooks.once('init', async function() {
 
@@ -11,18 +12,12 @@ Hooks.once('init', async function() {
     OneRollEngineItem
   };
 
-  /**
-   * Set an initiative formula for the system
-   * @type {String}
-   */
-  CONFIG.Combat.initiative = {
-    formula: "1d20",
-    decimals: 2
-  };
 
   // Define custom Entity classes
   CONFIG.Actor.entityClass = OneRollEngineActor;
   CONFIG.Item.entityClass = OneRollEngineItem;
+
+  registerSettings()
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);

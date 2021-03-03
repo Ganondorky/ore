@@ -1,1 +1,17 @@
-{}
+{
+    "ORE.Submit": "Submit",
+    "ORE.SkillName": "Skill Name",
+    "ORE.SkillMin": "Min Value",
+    "ORE.SkillMax": "Max Value",
+    "ORE.statSettingsT": "Stat Settings",
+    "ORE.StatSettingsH": "Add custom stats and skills here",
+    "ORE.StatSettingsL": "Stat Settings",
+    "ORE.StatSettingsN": "Stat Settings",
+    "ORE.Stats": "Stats",
+    "ORE.StatName": "Stat Name",
+    "ORE.StatMin": "Min Value",
+    "ORE.StatMax": "Max Value",
+    "ORE.RemoveStat": "Remove Stat",
+    "ORE.AddSkill": "Add Skill",
+    "ORE.RemoveSkill": "Remove Skill"
+}
