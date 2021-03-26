@@ -1,0 +1,92 @@
+<form class="{{cssClass}}" autocomplete="off" style="background-color: #fff;">
+  <main>
+    <section
+      class="attributes flex-container"
+      id="setting-specific"
+    >
+      <div class="flex-row flex-ac">
+        <h2 class="section-heading">{{localize 'ORE.Stats'}}</h2>
+        <div class="ml-3">
+          <button class="btn btn-icon btn-primary add-stat">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div>
+        {{#each stats as |stat statKey|}}
+          <div class="stat flex flex-wrap px-2 my-3 ba-2-black collapse-parent">
+            <div class="flex-col my-2 col-12">
+              <label>{{localize 'ORE.RemoveStat'}}</label>
+              <button class="btn btn-icon btn-secondary remove-parent-element" data-selector=".stat">
+                <i class="fa fa-minus"></i>
+              </button>
+              <button class="btn btn-icon collapse-toggle" data-target="stats.{{statKey}}" type="button">
+                <i class="fa {{ifString stat.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
+              </button>
+              <input class="collapse-value hide" type="checkbox" name="stats.{{statKey}}.isHidden" {{checked stat.isHidden}} />
+            </div>
+            <div class="flex-col col-4">
+              <label>{{localize 'ORE.StatName'}}</label>
+              <div>
+                <input type="text" name="stats.{{statKey}}.name" value="{{stat.name}}">
+              </div>
+            </div>
+            <div class="flex-col col-4">
+              <label>{{localize 'ORE.StatMin'}}</label>
+              <div class="col-3">
+                <input type="number" name="stats.{{statKey}}.min" value="{{stat.min}}">
+              </div>
+            </div>
+            <div class="flex-col col-4">
+              <label>{{localize 'ORE.StatMax'}}</label>
+              <div class="col-3">
+                <input type="number" name="stats.{{statKey}}.max" value="{{stat.max}}">
+              </div>
+            </div>
+            <div class="skills my-2 col-12 px-2 by-1-black collapse-body{{ifString stat.isHidden ' hide' ''}}">
+              <label>{{localize 'ORE.AddSkill'}}</label>
+              <button class="btn btn-icon btn-primary add-skill" data-stat="{{statKey}}">
+                <i class="fa fa-plus"></i>
+              </button>
+              {{#each stat.skills as |skill skillKey|}}
+              <div class="skill flex flex-wrap py-4 bb-1-black">
+                <div class="flex-col col-12">
+                  <label>{{localize 'ORE.RemoveSkill'}}</label>
+                  <button class="btn btn-icon btn-secondary remove-parent-element" data-selector=".skill">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                </div>
+                <div class="flex-col col-4">
+                  <label>{{localize 'ORE.SkillName'}}</label>
+                  <div>
+                    <input type="text" name="stats.{{statKey}}.skills.{{skillKey}}.name" value="{{skill.name}}">
+                  </div>
+                </div>
+                <div class="flex-col col-4">
+                  <label>{{localize 'ORE.SkillMin'}}</label>
+                  <div class="col-3">
+                    <input type="number" name="stats.{{statKey}}.skills.{{skillKey}}.min" value="{{skill.min}}">
+                  </div>
+                </div>
+                <div class="flex-col col-4">
+                  <label>{{localize 'ORE.SkillMax'}}</label>
+                  <div class="col-3">
+                    <input type="number" name="stats.{{statKey}}.skills.{{skillKey}}.max" value="{{skill.max}}">
+                  </div>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </section>
+    <button
+      class="btn btn-secondary"
+      id="submit"
+      type="button"
+    >
+      {{localize 'ORE.Submit'}}
+    </button>
+  </main>
+</form>

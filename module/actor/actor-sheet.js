@@ -50,6 +50,29 @@ export class OneRollEngineActorSheet extends ActorSheet {
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
+
+    html.find('.stat-input').on('input', (event) => {
+     
+      const value = parseInt(event.target.value)
+      const $stat = $(event.target)
+      const isSkill = $stat.hasClass('skill-input')
+      const statSettings = game.settings.get('ore', 'stats')
+      const minValue = isSkill
+        ? statSettings[$stat.data('stat')].skills[$stat.data('skill')].min
+        : statSettings[$stat.data('stat')].min
+      const maxValue = isSkill
+        ? statSettings[$stat.data('stat')].skills[$stat.data('skill')].max
+        : statSettings[$stat.data('stat')].max
+      const newValue = !Number.isInteger(value)
+        ? minValue
+        : value < minValue
+          ? minValue
+          : value > maxValue
+            ? maxValue
+            : value
+
+      $stat.val(newValue)
+    })
   }
 
   /* -------------------------------------------- */
