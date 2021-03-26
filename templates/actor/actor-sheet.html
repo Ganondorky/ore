@@ -1,4 +1,4 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
 
     {{!-- Sheet Header --}}
     <header class="sheet-header">
@@ -9,11 +9,28 @@
                 <label class="text-primary">Name</label>
                 <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
               </div>
-              {{#each data.attributes as |attribute name|}}
+              {{#each data.qualities as |quality qualityKey|}}
               <div class="resource flex-col col-6">
-                <label for="data.attributes.{{name}}" class="text-primary text-capitalize">{{name}}</label>
+                <label for="data.qualities.{{qualityKey}}" class="text-primary text-capitalize">{{quality.name}}</label>
+                <button class="btn btn-icon btn-primary add-quality">
+                  <i class="fa fa-plus"></i>
+                </button>
                 <div>
-                  <input type="text" name="data.attributes.{{name}}" value="{{attribute}}"/>
+                  {{#each quality.items as |qualityItem qualityItemKey|}}
+                    <div class="quality-item">
+                      <div>
+                        <label>{{localize 'ORE.Name'}}</label>
+                        <input type="text" name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.name" value="{{qualityItem.name}}">
+                      </div>
+                      <button class="btn btn-icon btn-secondary remove-quality">
+                        <i class="fa fa-minus"></i>
+                      </button>
+                      <div>
+                        <label>{{localize 'ORE.Description'}}</label>
+                        <textarea name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.description">{{qualityItem.description}}</textarea>
+                      </div>
+                    </div>
+                  {{/each}}
                 </div>
               </div>
               {{/each}}
@@ -24,74 +41,47 @@
           
     </header>
 
-    <div class="stats flex flex-wrap">
-      {{#each data.stats as |stat statKey|}}
-        <div class="flex-col col-4 my-4">
-          <div class="ability flex">
-            <label for="data.stats.{{statKey}}.value" class="resource-label flex-col col-9 text-secondary">{{statKey}}</label>
-            <div class="flex-col col-3 text-center">
-              <input type="text" name="data.stats.{{statKey}}.value" value="{{stat.value}}" data-dtype="Number"/>
-            </div>
-          </div>
-          <div>
-            {{#each stat.skills as |skill skillKey|}}
-                {{#unless skill.hasSubskills}}
-                  <div class="ability flex">
-                    <div class="flex-col col-9">
-                      <label for="data.stats.{{statKey}}.skills.{{skillKey}}.value" data-label="{{stat.name}} {{skill.name}}" data-stat="{{stat.value}}" data-skill="{{skill.value}}" class="rollable resource-label pl-2 text-primary">{{skill.name}}</label>
-                    </div>
-                    <div class="flex-col col-3 text-center">
-                      <input type="text" name="data.stats.{{statKey}}.skills.{{skillKey}}.value" value="{{skill.value}}" data-dtype="Number" min="1" max="10"/>
-                    </div>
-                  </div>
-                {{else}}
-                  <div class="ability flexrow">
-                    <label>{{skill.name}}</label>
-                  </div>
-                {{/unless}}
-            {{/each}}
-          </div>
-        </div>
-      {{/each}}
-    </div>
-  </div>
-
-    {{!-- Sheet Tab Navigation --}}
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-        <a class="item" data-tab="items">Items</a>
+    {{!-- Sheet Body --}}
+    <nav class="flex flex-wrap sheet-tabs tabs" data-group="primary">
+      <a class="item flex-col col-4" data-tab="stats">{{localize 'ORE.Stats'}}</a>
+      <a class="item flex-col col-4" data-tab="advantages">{{localize 'ORE.Advantages'}}</a>
+      <a class="item flex-col col-4" data-tab="martials">{{localize 'ORE.Martials'}}</a>
+      <a class="item flex-col col-4" data-tab="esoterics">{{localize 'ORE.Esoterichs'}}</a>
+      <a class="item flex-col col-4" data-tab="description">{{localize 'ORE.Description'}}</a>
+      <a class="item flex-col col-4" data-tab="items">{{localize 'ORE.Items'}}</a>
     </nav>
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body">
+    <section class="flex flex-wrap sheet-body">
 
-        {{!-- Biography Tab --}}
-        <div class="tab biography" data-group="primary" data-tab="description">
-            {{editor content=data.biography target="data.biography" button=true owner=owner editable=editable}}
-        </div>
+      {{!-- Stats Tab --}}
+      <div class="tab stats active" data-group="primary" data-tab="stats">
+        {{> "systems/ore/templates/actor/partials/stats.html"}}
+      </div>
 
-        {{!-- Owned Items Tab --}}
-        <div class="tab items" data-group="primary" data-tab="items">
-            <ol class="items-list">
-                <li class="item flexrow item-header">
-                  <div class="item-image"></div>
-                  <div class="item-name">Name</div>
-                  <div class="item-controls">
-                    <a class="item-control item-create" title="Create item" data-type="item"><i class="fas fa-plus"></i> Add item</a>
-                  </div>
-                </li>
-            {{#each actor.items as |item id|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
-                    <div class="item-image"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></div>
-                    <h4 class="item-name">{{item.name}}</h4>
-                    <div class="item-controls">
-                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-            {{/each}}
-            </ol>
-        </div>
+      {{!-- Advantages Tab --}}
+      <div class="tab advantages" data-group="primary" data-tab="advantages">
+        {{> "systems/ore/templates/actor/partials/advantages.html"}}
+      </div>
+
+      {{!-- Martials Paths Tab --}}
+      <div class="tab martials" data-group="primary" data-tab="martials">
+        {{> "systems/ore/templates/actor/partials/martials.html"}}
+      </div>
+
+      {{!-- Esoteric Discipline Tab --}}
+      <div class="tab esoterics" data-group="primary" data-tab="esoterics">
+        {{> "systems/ore/templates/actor/partials/esoterics.html"}}
+      </div>
+
+      {{!-- Description Tab --}}
+      <div class="tab description" data-group="primary" data-tab="descriptions">
+        {{> "systems/ore/templates/actor/partials/descriptions.html"}}
+      </div>
+
+      {{!-- Items Tab --}}
+      <div class="tab items" data-group="primary" data-tab="items">
+        {{> "systems/ore/templates/actor/partials/items.html"}}
+      </div>
 
     </section>
 </form>

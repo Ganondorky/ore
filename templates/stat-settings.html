@@ -14,12 +14,16 @@
       </div>
       <div>
         {{#each stats as |stat statKey|}}
-          <div class="stat flex flex-wrap px-2 my-3 ba-2-black">
+          <div class="stat flex flex-wrap px-2 my-3 ba-2-black collapse-parent">
             <div class="flex-col my-2 col-12">
               <label>{{localize 'ORE.RemoveStat'}}</label>
               <button class="btn btn-icon btn-secondary remove-parent-element" data-selector=".stat">
                 <i class="fa fa-minus"></i>
               </button>
+              <button class="btn btn-icon collapse-toggle" data-target="stats.{{statKey}}" type="button">
+                <i class="fa {{ifString stat.isHidden 'fa-chevron-down' 'fa-chevron-up'}}"></i>
+              </button>
+              <input class="collapse-value hide" type="checkbox" name="stats.{{statKey}}.isHidden" {{checked stat.isHidden}} />
             </div>
             <div class="flex-col col-4">
               <label>{{localize 'ORE.StatName'}}</label>
@@ -39,7 +43,7 @@
                 <input type="number" name="stats.{{statKey}}.max" value="{{stat.max}}">
               </div>
             </div>
-            <div class="skills my-2 col-12 px-2 by-1-black">
+            <div class="skills my-2 col-12 px-2 by-1-black collapse-body{{ifString stat.isHidden ' hide' ''}}">
               <label>{{localize 'ORE.AddSkill'}}</label>
               <button class="btn btn-icon btn-primary add-skill" data-stat="{{statKey}}">
                 <i class="fa fa-plus"></i>

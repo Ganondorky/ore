@@ -3,7 +3,7 @@
     "ORE.SkillName": "Skill Name",
     "ORE.SkillMin": "Min Value",
     "ORE.SkillMax": "Max Value",
-    "ORE.statSettingsT": "Stat Settings",
+    "ORE.StatSettingsT": "Stat Settings",
     "ORE.StatSettingsH": "Add custom stats and skills here",
     "ORE.StatSettingsL": "Stat Settings",
     "ORE.StatSettingsN": "Stat Settings",
@@ -13,5 +13,18 @@
     "ORE.StatMax": "Max Value",
     "ORE.RemoveStat": "Remove Stat",
     "ORE.AddSkill": "Add Skill",
-    "ORE.RemoveSkill": "Remove Skill"
+    "ORE.RemoveSkill": "Remove Skill",
+    "ORE.QualitySettingsT": "Quality Settings",
+    "ORE.QualitySettingsH": "Add custom qualities here",
+    "ORE.QualitySettingsL": "Quality Settings",
+    "ORE.QualitySettingsN": "Quality Settings",
+    "ORE.Qualities": "Qualities",
+    "ORE.QualityName": "Quality Name",
+    "ORE.RemoveQuality": "Remove Quality",
+    "ORE.Name": "Name",
+    "ORE.Description": "Description",
+    "ORE.Advantages": "Advantages",
+    "ORE.Martials": "Martial Paths",
+    "ORE.Esoterichs": "Esoteric Disciplines",
+    "ORE.Items": "Items"
 }

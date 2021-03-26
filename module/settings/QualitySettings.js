@@ -1,16 +1,16 @@
 import createNewFieldElements from '../scripts/createNewFieldElements.js'
 
-export default class StatSettings extends FormApplication {
+export default class QualitySettings extends FormApplication {
   constructor(object = {}, options = { parent: null }) {
     super(object, options);
   }
 
   static get defaultOptions () {
     return mergeObject(super.defaultOptions, {
-      id: 'statSettings',
-      template: 'systems/ore/templates/stat-settings.html',
-      title: game.i18n.localize('ORE.StatSettingsT'),
-      classes: ['ore', 'stat-settings'],
+      id: 'qualitySettings',
+      template: 'systems/ore/templates/quality-settings.html',
+      title: game.i18n.localize('ORE.QualitySettingsT'),
+      classes: ['ore', 'quality-settings'],
       width: 600,
       height: 1000,
       top: 200,
@@ -27,8 +27,7 @@ export default class StatSettings extends FormApplication {
   activateListeners (html) {
     super.activateListeners(html)
 
-    html.find('.add-stat').click(this._addStat.bind(this))
-    html.find('.add-skill').click(this._addSkill.bind(this))
+    html.find('.add-quality').click(this._addQuality.bind(this))
     html.find('.collapse-toggle').click(this._collapseToggle.bind(this))
     html.find('input.display-toggle').change(event => this._displayToggle(event, html))
     html.find('button.display-toggle').click(event => this._displayToggle(event, html))
@@ -37,74 +36,42 @@ export default class StatSettings extends FormApplication {
   }
 
   getData () {
-    const stats = game.settings.get('ore', 'stats')
+    const qualities = game.settings.get('ore', 'qualities')
 
     return {
-      stats
+      qualities
     }
   }
 
   async _updateObject (_, formData) {
     const expandedFormData = expandObject(formData)
-    const stats = game.settings.get('ore', 'stats')
 
-    const mergedStats = expandedFormData.stats ?? {}
+    const mergedQualities = expandedFormData.qualities ?? {}
 
-    if (expandedFormData.newStat) {
-      const currentStatLength = Object.keys(mergedStats).length
+    if (expandedFormData.newQuality) {
+      const currentQualityLength = Object.keys(mergedQualities).length
 
       const saveValue = {
-        ...mergedStats,
-        [currentStatLength]: {
-          ...expandedFormData.newStat,
-          skills: {}
-        }
+        ...mergedQualities,
+        [currentQualityLength]: expandedFormData.newQuality
+
       }
 
-      await game.settings.set('ore', 'stats', saveValue)
-    } else if (expandedFormData.newSkill) {
-      const currentSkills = mergedStats[expandedFormData.newSkill.stat].skills
-      const currentSkillsLength = Object.keys(currentSkills || {}).length
-      mergedStats[expandedFormData.newSkill.stat].skills = {
-        ...currentSkills,
-        [currentSkillsLength]: expandedFormData.newSkill
-      }
-      await game.settings.set('ore', 'stats', mergedStats)
+      await game.settings.set('ore', 'qualities', saveValue)
     } else {
-      await game.settings.set('ore', 'stats', mergedStats)
+      await game.settings.set('ore', 'qualities', mergedQualities)
     }
-
   }
 
-  async _addSkill (event) {
-    event.preventDefault()
-    const dataset = event.currentTarget.dataset
-    const $form = this.form
-    const stat = game.settings.get('ore', 'stats')[dataset.stat]
-
-    const $newSkillFields = createNewFieldElements([
-      { name: 'newSkill.name', type: 'text', value: `New ${stat.name} Skill` },
-      { name: 'newSkill.min', type: 'number', value: 1 },
-      { name: 'newSkill.max', type: 'number', value: 10 },
-      { name: 'newSkill.stat', type: 'text', value: dataset.stat }
-    ])
-
-    $form.append($newSkillFields)
-    await this._onSubmit(event)
-    this.render(true)
-  }
-
-  async _addStat (event) {
+  async _addQuality (event) {
     event.preventDefault()
     const $form = this.form
 
-    const $newStatFields = createNewFieldElements([
-      { name: 'newStat.name', type: 'text', value:'Your stat goes here' },
-      { name: 'newStat.min', type: 'number', value: 1 },
-      { name: 'newStat.max', type: 'number', value: 5 }
+    const $newQualityFields = createNewFieldElements([
+      { name: 'newQuality.name', type: 'text', value:'Your quality goes here' }
     ])
 
-    $form.append($newStatFields)
+    $form.append($newQualityFields)
     await this._onSubmit(event)
     this.render(true)
   }
@@ -133,6 +100,7 @@ export default class StatSettings extends FormApplication {
     await this._onSubmit(event)
     this.render(true)
   }
+
   /**
    * Remove attributes which are no longer used
    * @param attributes
@@ -147,7 +115,7 @@ export default class StatSettings extends FormApplication {
     return attributes;
   }
 
-  _mergeStats (formSets, currentSets) {
+  _mergeQualities (formSets, currentSets) {
     return formSets
       ? Object.keys(formSets).reduce((sets, setKey) => {
         const setsKeys = Object.keys(sets)

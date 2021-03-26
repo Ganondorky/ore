@@ -2095,6 +2095,10 @@ input {
   display: none;
 }
 
+.sheet nav.sheet-tabs {
+  height: auto;
+}
+
 .bkg-accent {
   background-color: #c0e2ca;
 }
@@ -2161,12 +2165,7 @@ input {
   text-transform: uppercase;
 }
 
-.ore .tabs {
-  height: 2.5rem;
-}
-
 .ore .tabs .item {
-  line-height: 2.5rem;
   font-weight: bold;
 }
 

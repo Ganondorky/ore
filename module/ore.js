@@ -3,7 +3,9 @@ import { OneRollEngineActor } from "./actor/actor.js";
 import { OneRollEngineActorSheet } from "./actor/actor-sheet.js";
 import { OneRollEngineItem } from "./item/item.js";
 import { OneRollEngineItemSheet } from "./item/item-sheet.js";
-import { registerSettings } from "./settings/settings.js"
+import { registerSettings } from "./settings/settings.js";
+import { preloadHandlebarsTemplates } from "./preloadTemplates.js";
+import oreHooks from "./oreHooks.js"
 
 Hooks.once('init', async function() {
 
@@ -39,4 +41,12 @@ Hooks.once('init', async function() {
   Handlebars.registerHelper('toLowerCase', function(str) {
     return str.toLowerCase();
   });
+
+  Handlebars.registerHelper('ifString', function (val, str, alt) {
+    return val ? str : alt
+  })
+  
+  preloadHandlebarsTemplates()
+
+  oreHooks()
 });
