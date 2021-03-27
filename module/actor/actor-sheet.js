@@ -73,15 +73,32 @@ export class OneRollEngineActorSheet extends ActorSheet {
 
       $stat.val(newValue)
     })
+
+    html.find('.add-quality').click(this._addQuality.bind(this))
+
+    html.find('.remove-quality').click(this._removeQuality.bind(this))
+
   }
 
   /* -------------------------------------------- */
+  
+  async _addQuality(event) {
+    event.preventDefault()
+    const $qualityButton = $(event.currentTarget)
+    const quality = $qualityButton.data('quality')
+    const currentQualityItems = this.actor.data.data.qualities[quality].items ?? {}
 
-  /**
-   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-   * @param {Event} event   The originating click event
-   * @private
-   */
+    await this.actor.update({
+      [`data.qualities.${quality}.items`]: {
+        ...currentQualityItems,
+        [Object.keys(currentQualityItems).length]: {
+          name: 'Brought to you by Carls Jr',
+          description:''        
+        }
+      }
+    })
+  }
+
   _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
@@ -131,4 +148,27 @@ export class OneRollEngineActorSheet extends ActorSheet {
 
   }
 
+  async _removeQuality(event){
+    event.preventDefault()
+    const $qualityButton = $(event.currentTarget)
+    const quality = $qualityButton.data('quality')
+    const qualityItem = $qualityButton.data('qualityItem')
+    const currentQualityItems = this.actor.data.data.qualities[quality].items ?? {}
+
+    const newData = Object.keys(currentQualityItems)
+      .reduce((acc, currentKey) => {
+        console.log(+currentKey, qualityItem, +currentKey !== qualityItem)
+        if (+currentKey !== qualityItem) {
+          return { ...acc, [Object.keys(acc).length]: currentQualityItems[currentKey] }
+        }
+
+        return acc
+      }, {})
+    await this.actor.update({
+      [`data.qualities.${quality}.-=items`]: null
+    })
+    await this.actor.update({
+      [`data.qualities.${quality}.items`]: newData
+    })
+  }
 }

@@ -5,14 +5,14 @@
         <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
         <div class="header-fields">
             <div class="flex flex-wrap">
-              <div class="flex-col col-6">
+              <div class="flex-col col-12">
                 <label class="text-primary">Name</label>
                 <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
               </div>
               {{#each data.qualities as |quality qualityKey|}}
               <div class="resource flex-col col-6">
                 <label for="data.qualities.{{qualityKey}}" class="text-primary text-capitalize">{{quality.name}}</label>
-                <button class="btn btn-icon btn-primary add-quality">
+                <button class="btn btn-icon btn-primary add-quality" data-quality="{{qualityKey}}">
                   <i class="fa fa-plus"></i>
                 </button>
                 <div>
@@ -20,11 +20,11 @@
                     <div class="quality-item">
                       <div>
                         <label>{{localize 'ORE.Name'}}</label>
+                        <button class="btn btn-icon btn-secondary remove-quality" data-quality="{{qualityKey}}" data-quality-item="{{qualityItemKey}}">
+                          <i class="fa fa-minus"></i>
+                        </button>
                         <input type="text" name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.name" value="{{qualityItem.name}}">
                       </div>
-                      <button class="btn btn-icon btn-secondary remove-quality">
-                        <i class="fa fa-minus"></i>
-                      </button>
                       <div>
                         <label>{{localize 'ORE.Description'}}</label>
                         <textarea name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.description">{{qualityItem.description}}</textarea>
