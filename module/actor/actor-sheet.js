@@ -11,7 +11,7 @@ export class OneRollEngineActorSheet extends ActorSheet {
       template: "systems/ore/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "stats" }]
     });
   }
 
@@ -20,7 +20,7 @@ export class OneRollEngineActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData()
-
+    console.log(data)
     return data
   }
 
@@ -77,7 +77,7 @@ export class OneRollEngineActorSheet extends ActorSheet {
     html.find('.add-quality').click(this._addQuality.bind(this))
 
     html.find('.remove-quality').click(this._removeQuality.bind(this))
-
+    html.find('.hit-box').click(this._changeHitBox.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -97,6 +97,23 @@ export class OneRollEngineActorSheet extends ActorSheet {
         }
       }
     })
+  }
+
+  async _changeHitBox(event) {
+    event.preventDefault()
+    const $hitbox = $(event.currentTarget)
+    const newWound = {
+      blocked: $hitbox.hasClass('kill'),
+      kill: $hitbox.hasClass('shock'),
+      shock: !$hitbox.hasClass('kill') && !$hitbox.hasClass('shock') && !$hitbox.hasClass('blocked')
+    }
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+
   }
 
   _onItemCreate(event) {

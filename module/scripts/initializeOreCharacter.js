@@ -39,6 +39,37 @@ export default async (data) => {
       }
     }, {})
 
+    const hitLocationSettings = game.settings.get('ore', 'hitLocations')
+
+    const generateWounds = (total, acc = {}, i = 0) => {
+      if (i >= total) return acc
+
+      return generateWounds(
+        total,
+        {
+          ...acc,
+          [i]: {
+            blocked: false,
+            kill: false,
+            shock: false
+          }
+        },
+        i + 1
+      )
+    }
+
+    characterData.hitLocations = Object.keys(hitLocationSettings)
+      .reduce((hitLocations, hitLocationIndex) => {
+        return {
+          ...hitLocations,
+          [hitLocationIndex]: {
+            ...hitLocationSettings[hitLocationIndex],
+            armor: 0,
+            wounds: generateWounds(hitLocationSettings[hitLocationIndex].wounds)
+          }
+        }
+      }, {})
+
   workingData.data = characterData
 
   await actor.update(workingData)

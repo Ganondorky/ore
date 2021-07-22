@@ -2174,6 +2174,26 @@ input {
   text-shadow: none;
 }
 
+.ore .hit-box {
+  background-color: green;
+  cursor: pointer;
+  display: inline-block;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.ore .hit-box.blocked {
+  background-color: black;
+}
+
+.ore .hit-box.shock {
+  background-color: yellow;
+}
+
+.ore .hit-box.kill {
+  background-color: red;
+}
+
 .die-icon-wrapper {
   display: inline-block;
   line-height: 0;

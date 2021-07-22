@@ -46,6 +46,19 @@ Hooks.once('init', async function() {
     return val ? str : alt
   })
   
+  Handlebars.registerHelper({
+    eq: function () { return reduceOp(arguments, (a, b) => a === b) },
+    ne: function () { return reduceOp(arguments, (a, b) => a !== b) },
+    lt: function () { return reduceOp(arguments, (a, b) => a < b) },
+    gt: function () { return reduceOp(arguments, (a, b) => a > b) },
+    lte: function () { return reduceOp(arguments, (a, b) => parseInt(a) <= parseInt(b)) },
+    gte: function () { return reduceOp(arguments, (a, b) => parseInt(a) >= parseInt(b)) },
+    and: function () { return reduceOp(arguments, (a, b) => a && b) },
+    or: function () { return reduceOp(arguments, (a, b) => a || b) },
+    not: a => !a,
+    ternary: (conditional, a, b) => conditional ? a : b
+  });
+
   preloadHandlebarsTemplates()
 
   oreHooks()

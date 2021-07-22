@@ -26,5 +26,11 @@
     "ORE.Advantages": "Advantages",
     "ORE.Martials": "Martial Paths",
     "ORE.Esoterichs": "Esoteric Disciplines",
-    "ORE.Items": "Items"
+    "ORE.Items": "Items",
+    "ORE.HitLocationSettings": "Hit Location Settings",
+    "ORE.HitLocationSettingsH": "Edit hit locations and wounds defaults",
+    "ORE.HitLocations": "Hit Locations",
+    "ORE.RemoveHitLocation": "Remove Hit Location",
+    "ORE.Range": "Range",
+    "ORE.Wounds": "Wounds"
 }
