@@ -3,7 +3,7 @@ import {objectReduce, objectSort} from '../../lib/helpers.js'
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class OneRollEngineActorSheet extends ActorSheet {
+  export class OneRollEngineActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
@@ -79,6 +79,7 @@ export class OneRollEngineActorSheet extends ActorSheet {
 
     html.find('.remove-quality').click(this._removeQuality.bind(this))
     html.find('.hit-box').click(this._changeHitBox.bind(this))
+    html.find('.hit-box').on('mouseup', this._resetHitBox.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -115,6 +116,25 @@ export class OneRollEngineActorSheet extends ActorSheet {
       [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
     })
 
+  }
+
+  async _resetHitBox(event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const $hitbox = $(event.currentTarget)
+      const newWound = {
+        blocked: false,
+        kill: false,
+        shock: false
+      }
+      await this.actor.update({
+        [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+      })
+      await this.actor.update({
+        [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+      })
+    }
   }
 
   _onItemCreate(event) {
