@@ -1,3 +1,4 @@
+import {objectReduce, objectSort} from '../../lib/helpers.js'
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -143,17 +144,58 @@ export class OneRollEngineActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onRoll(event) {
+  async _onRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const roll = new Roll(`${parseInt(dataset.stat)+parseInt(dataset.skill)}d10`)
+    const r = new Roll(`${parseInt(dataset.stat)+parseInt(dataset.skill)}d10`)
+    const roll = await r.evaluate({async: true})
 
-    let label = dataset.label ? `Rolling ${dataset.label}` : '';
-    roll.roll().toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: label
+    const rawResults = roll.dice[0].results
+      .reduce((results, result) => {
+        return {
+          ...results,
+          [result.result]: (results[result.result] ?? 0) + 1
+        }
+      }, {})
+
+    const results = objectReduce(rawResults, (newResults, amount, value) => {
+      if (amount > 1) {
+        return {
+          ...newResults,
+          sets: [
+            ...(newResults.sets ?? []),
+            { value, amount }
+          ]
+        }
+      }
+
+      return {
+        ...newResults,
+        waste: [
+          ...(newResults.waste ?? []),
+          value
+        ]
+      }
+    }, {})
+
+    results.sets?.sort((a, b) => b.value - a.value)
+    results.waste?.sort((a, b) => b - a)
+
+    const message = await renderTemplate('systems/ore/templates/chat/roll-result.html', {
+      rollResults: results,
+      speaker:game.user
     })
+
+    await ChatMessage.create(
+      {content: message}
+    )
+      
+    //let label = dataset.label ? `Rolling ${dataset.label}` : '';
+    // roll.roll().toMessage({
+    //   speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    //   flavor: label
+    // })
     // if (dataset.roll) {
     //   let roll = new Roll(dataset.roll, this.actor.data.data);
     //   let label = dataset.label ? `Rolling ${dataset.label}` : '';

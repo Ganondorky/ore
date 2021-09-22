@@ -2194,230 +2194,34 @@ input {
   background-color: red;
 }
 
-.die-icon-wrapper {
-  display: inline-block;
-  line-height: 0;
-  margin-left: 0.125rem;
-  margin-right: 0.125rem;
-  vertical-align: middle;
-}
-
 .die-icon {
+  background-image: url("../assets/D10-Default.svg");
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 2.5rem;
+  height: 1.75rem;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  width: 1.75rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-left: 0.125rem;
+  margin-right: 0.125rem;
   position: relative;
+}
+
+.die-icon.lg {
+  height: 2.5rem;
   width: 2.5rem;
 }
 
-.die-icon.d4 {
-  height: 2.25rem;
-  width: 2.25rem;
-}
-
-.die-icon.d4 .value {
-  padding-bottom: 0.35rem;
-}
-
-.die-icon.d6 {
-  height: 2rem;
-  width: 2rem;
-}
-
-.die-icon.d10, .die-icon.d12 {
-  height: 2.25rem;
-  width: 2.25rem;
-}
-
-.die-icon.d4 {
-  background-image: url("../assets/dice/d4.svg");
-}
-
-.die-icon.d4.effect {
-  background-image: url("../assets/dice/effect-d4.svg");
-}
-
-.die-icon.d4.hitch {
-  background-image: url("../assets/dice/hitch-d4.svg");
-}
-
-.die-icon.d4.result {
-  background-image: url("../assets/dice/result-d4.svg");
-}
-
-.die-icon.d4.selected {
-  background-image: url("../assets/dice/selected-d4.svg");
-}
-
-.die-icon.d4.unchosen {
-  background-image: url("../assets/dice/unchosen-d4.svg");
-}
-
-.die-icon.d6 {
-  background-image: url("../assets/dice/d6.svg");
-}
-
-.die-icon.d6.effect {
-  background-image: url("../assets/dice/effect-d6.svg");
-}
-
-.die-icon.d6.hitch {
-  background-image: url("../assets/dice/hitch-d6.svg");
-}
-
-.die-icon.d6.result {
-  background-image: url("../assets/dice/result-d6.svg");
-}
-
-.die-icon.d6.selected {
-  background-image: url("../assets/dice/selected-d6.svg");
-}
-
-.die-icon.d6.unchosen {
-  background-image: url("../assets/dice/unchosen-d6.svg");
-}
-
-.die-icon.d8 {
-  background-image: url("../assets/dice/d8.svg");
-}
-
-.die-icon.d8.effect {
-  background-image: url("../assets/dice/effect-d8.svg");
-}
-
-.die-icon.d8.hitch {
-  background-image: url("../assets/dice/hitch-d8.svg");
-}
-
-.die-icon.d8.result {
-  background-image: url("../assets/dice/result-d8.svg");
-}
-
-.die-icon.d8.selected {
-  background-image: url("../assets/dice/selected-d8.svg");
-}
-
-.die-icon.d8.unchosen {
-  background-image: url("../assets/dice/unchosen-d8.svg");
-}
-
-.die-icon.d10 {
-  background-image: url("../assets/dice/d10.svg");
-}
-
-.die-icon.d10.effect {
-  background-image: url("../assets/dice/effect-d10.svg");
-}
-
-.die-icon.d10.hitch {
-  background-image: url("../assets/dice/hitch-d10.svg");
-}
-
-.die-icon.d10.result {
-  background-image: url("../assets/dice/result-d10.svg");
-}
-
-.die-icon.d10.selected {
-  background-image: url("../assets/dice/selected-d10.svg");
-}
-
-.die-icon.d10.unchosen {
-  background-image: url("../assets/dice/unchosen-d10.svg");
-}
-
-.die-icon.d12 {
-  background-image: url("../assets/dice/d12.svg");
-}
-
-.die-icon.d12.effect {
-  background-image: url("../assets/dice/effect-d12.svg");
-}
-
-.die-icon.d12.hitch {
-  background-image: url("../assets/dice/hitch-d12.svg");
-}
-
-.die-icon.d12.result {
-  background-image: url("../assets/dice/result-d12.svg");
-}
-
-.die-icon.d12.selected {
-  background-image: url("../assets/dice/selected-d12.svg");
-}
-
-.die-icon.d12.unchosen {
-  background-image: url("../assets/dice/unchosen-d12.svg");
-}
-
-.die-icon .value {
-  color: #f5f8fa;
+.value {
+  color: #141c27;
   font-weight: bold;
   font-size: 1.125rem;
-}
-
-.die-icon.result .value {
-  color: #424C59;
-}
-
-.die-icon.selected .value {
-  color: #141c27;
-}
-
-.die-icon.unchosen .value {
-  color: #82939F;
-}
-
-.die-select {
-  border: none;
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  color: transparent;
-  height: 1.75rem;
-  text-align: center;
-  text-align-last: center;
-  -moz-text-align-last: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-.die-select ::-ms-expand {
-  display: none;
-}
-
-.die-select option {
-  color: black;
-  font-weight: 600;
-}
-
-.die-select.d4 {
-  background-image: url("../assets/dice/d4.svg");
-}
-
-.die-select.d6 {
-  background-image: url("../assets/dice/d6.svg");
-  background-size: 75%;
-}
-
-.die-select.d8 {
-  background-image: url("../assets/dice/d8.svg");
-}
-
-.die-select.d10 {
-  background-image: url("../assets/dice/d10.svg");
-}
-
-.die-select.d12 {
-  background-image: url("../assets/dice/d12.svg");
 }

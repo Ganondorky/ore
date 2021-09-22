@@ -32,5 +32,7 @@
     "ORE.HitLocations": "Hit Locations",
     "ORE.RemoveHitLocation": "Remove Hit Location",
     "ORE.Range": "Range",
-    "ORE.Wounds": "Wounds"
+    "ORE.Wounds": "Wounds",
+    "ORE.Sets": "Sets",
+    "ORE.Waste": "Waste"
 }
