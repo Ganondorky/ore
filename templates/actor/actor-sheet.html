@@ -1,89 +1,102 @@
 <form class="{{cssClass}}" autocomplete="off">
 
-    {{!-- Sheet Header --}}
-    <header class="sheet-header">
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-        <div class="header-fields">
-            <div class="flex flex-wrap">
-              <div class="flex-col col-12">
-                <label class="text-primary">Name</label>
-                <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
-              </div>
-              {{#each data.qualities as |quality qualityKey|}}
-              <div class="resource flex-col col-6">
-                <label for="data.qualities.{{qualityKey}}" class="text-primary text-capitalize">{{quality.name}}</label>
-                <button class="btn btn-icon btn-primary add-quality" data-quality="{{qualityKey}}">
-                  <i class="fa fa-plus"></i>
-                </button>
+  {{!-- Sheet Header --}}
+  <header>
+    {{#if owner}}
+    <div class="flex flex-ac flex-je mb-1">
+      <div class="flex-col">
+        <button class="btn btn-icon btn-primary toggle-edit" type="button">
+          <i class="fa {{ternary data.edit 'fa-check' 'fa-edit'}}"></i>
+        </button>
+      </div>
+    </div>
+    {{/if}}
+    <div class="flex flex-wrap">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
+      <div class="header-fields">
+        <div class="flex flex-wrap">
+          <div class="flex-col col-12">
+            <label class="text-primary">Name</label>
+            <input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+          </div>
+          {{#each data.qualities as |quality qualityKey|}}
+          <div class="resource flex-col col-6">
+            <label for="data.qualities.{{qualityKey}}" class="text-primary text-capitalize">{{quality.name}}</label>
+            <button class="btn btn-icon btn-primary add-quality" data-quality="{{qualityKey}}">
+              <i class="fa fa-plus"></i>
+            </button>
+            <div>
+              {{#each quality.items as |qualityItem qualityItemKey|}}
+              <div class="quality-item">
                 <div>
-                  {{#each quality.items as |qualityItem qualityItemKey|}}
-                    <div class="quality-item">
-                      <div>
-                        <label>{{localize 'ORE.Name'}}</label>
-                        <button class="btn btn-icon btn-secondary remove-quality" data-quality="{{qualityKey}}" data-quality-item="{{qualityItemKey}}">
-                          <i class="fa fa-minus"></i>
-                        </button>
-                        <input type="text" name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.name" value="{{qualityItem.name}}">
-                      </div>
-                      <div>
-                        <label>{{localize 'ORE.Description'}}</label>
-                        <textarea name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.description">{{qualityItem.description}}</textarea>
-                      </div>
-                    </div>
-                  {{/each}}
+                  <label>{{localize 'ORE.Name'}}</label>
+                  <button class="btn btn-icon btn-secondary remove-quality" data-quality="{{qualityKey}}"
+                    data-quality-item="{{qualityItemKey}}">
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <input type="text" name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.name"
+                    value="{{qualityItem.name}}">
+                </div>
+                <div>
+                  <label>{{localize 'ORE.Description'}}</label>
+                  <textarea
+                    name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.description">{{qualityItem.description}}</textarea>
                 </div>
               </div>
               {{/each}}
+            </div>
           </div>
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-          
-    </header>
-
-    {{!-- Sheet Body --}}
-    <nav class="flex flex-wrap sheet-tabs tabs" data-group="primary">
-      <a class="item flex-col col-4" data-tab="stats">{{localize 'ORE.Stats'}}</a>
-      <a class="item flex-col col-4" data-tab="advantages">{{localize 'ORE.Advantages'}}</a>
-      <a class="item flex-col col-4" data-tab="martials">{{localize 'ORE.Martials'}}</a>
-      <a class="item flex-col col-4" data-tab="esoterics">{{localize 'ORE.Esoterichs'}}</a>
-      <a class="item flex-col col-4" data-tab="description">{{localize 'ORE.Description'}}</a>
-      <a class="item flex-col col-4" data-tab="items">{{localize 'ORE.Items'}}</a>
-    </nav>
-
-    <section class="flex flex-wrap sheet-body">
-
-      {{!-- Stats Tab --}}
-      <div class="tab stats active" data-group="primary" data-tab="stats">
-        {{> "systems/ore/templates/actor/partials/stats.html"}}
-        {{> "systems/ore/templates/actor/partials/hit-locations.html"}}
+          {{/each}}
+        </div>
+        {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
+        use both the "grid" and "grid-Ncol" class where "N" can be any number
+        from 1 to 12 and will create that number of columns. --}}
       </div>
+    </div>
+  </header>
 
-      {{!-- Advantages Tab --}}
-      <div class="tab advantages" data-group="primary" data-tab="advantages">
-        {{> "systems/ore/templates/actor/partials/advantages.html"}}
-      </div>
+  {{!-- Sheet Body --}}
+  <nav class="flex flex-wrap sheet-tabs tabs" data-group="primary">
+    <a class="item flex-col col-4" data-tab="stats">{{localize 'ORE.Stats'}}</a>
+    <a class="item flex-col col-4" data-tab="advantages">{{localize 'ORE.Advantages'}}</a>
+    <a class="item flex-col col-4" data-tab="martials">{{localize 'ORE.Martials'}}</a>
+    <a class="item flex-col col-4" data-tab="esoterics">{{localize 'ORE.Esoterichs'}}</a>
+    <a class="item flex-col col-4" data-tab="description">{{localize 'ORE.Description'}}</a>
+    <a class="item flex-col col-4" data-tab="items">{{localize 'ORE.Items'}}</a>
+  </nav>
 
-      {{!-- Martials Paths Tab --}}
-      <div class="tab martials" data-group="primary" data-tab="martials">
-        {{> "systems/ore/templates/actor/partials/martials.html"}}
-      </div>
+  <section class="flex flex-wrap sheet-body">
 
-      {{!-- Esoteric Discipline Tab --}}
-      <div class="tab esoterics" data-group="primary" data-tab="esoterics">
-        {{> "systems/ore/templates/actor/partials/esoterics.html"}}
-      </div>
+    {{!-- Stats Tab --}}
+    <div class="tab stats active" data-group="primary" data-tab="stats">
+      {{> "systems/ore/templates/actor/partials/stats.html"}}
+      {{> "systems/ore/templates/actor/partials/hit-locations.html"}}
+    </div>
 
-      {{!-- Description Tab --}}
-      <div class="tab description" data-group="primary" data-tab="descriptions">
-        {{> "systems/ore/templates/actor/partials/descriptions.html"}}
-      </div>
+    {{!-- Advantages Tab --}}
+    <div class="tab advantages" data-group="primary" data-tab="advantages">
+      {{> "systems/ore/templates/actor/partials/advantages.html"}}
+    </div>
 
-      {{!-- Items Tab --}}
-      <div class="tab items" data-group="primary" data-tab="items">
-        {{> "systems/ore/templates/actor/partials/items.html"}}
-      </div>
+    {{!-- Martials Paths Tab --}}
+    <div class="tab martials" data-group="primary" data-tab="martials">
+      {{> "systems/ore/templates/actor/partials/martials.html"}}
+    </div>
 
-    </section>
+    {{!-- Esoteric Discipline Tab --}}
+    <div class="tab esoterics" data-group="primary" data-tab="esoterics">
+      {{> "systems/ore/templates/actor/partials/esoterics.html"}}
+    </div>
+
+    {{!-- Description Tab --}}
+    <div class="tab description" data-group="primary" data-tab="descriptions">
+      {{> "systems/ore/templates/actor/partials/descriptions.html"}}
+    </div>
+
+    {{!-- Items Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+      {{> "systems/ore/templates/actor/partials/items.html"}}
+    </div>
+
+  </section>
 </form>
-

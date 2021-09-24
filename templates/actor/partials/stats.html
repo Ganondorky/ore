@@ -1,30 +1,72 @@
 <div class="stats flex flex-wrap">
   {{#each data.stats as |stat statKey|}}
-    <div class="flex-col col-4 my-4">
-      <div class="ability flex">
-        <label for="data.stats.{{statKey}}.value" class="stat-label resource-label flex-col col-9 text-secondary">{{stat.name}}</label>
-        <div class="flex-col col-3 text-center">
-          <input class="stat-input" type="text" name="data.stats.{{statKey}}.value" value="{{stat.value}}" data-stat="{{statKey}}" data-dtype="Number"/>
-        </div>
-      </div>
-      <div>
-        {{#each stat.skills as |skill skillKey|}}
-            {{#unless skill.hasSubskills}}
-              <div class="ability flex">
-                <div class="flex-col col-9">
-                  <label for="data.stats.{{statKey}}.skills.{{skillKey}}.value" data-label="{{stat.name}} {{skill.name}}" data-stat="{{stat.value}}" data-skill="{{skill.value}}" class="rollable resource-label pl-2 text-primary">{{skill.name}}</label>
-                </div>
-                <div class="flex-col col-3 text-center">
-                  <input class="stat-input skill-input" type="text" name="data.stats.{{statKey}}.skills.{{skillKey}}.value" value="{{skill.value}}" data-stat="{{statKey}}" data-skill="{{skillKey}}" data-dtype="Number"/>
-                </div>
-              </div>
-            {{else}}
-              <div class="ability flexrow">
-                <label>{{skill.name}}</label>
-              </div>
-            {{/unless}}
-        {{/each}}
+  <div class="flex-col col-6 my-4">
+    <div class="ability flex flex-ac">
+      <p for="data.stats.{{statKey}}.value" class="stat-label resource-label flex-col col-10 text-secondary">
+        {{stat.name}}</label>
+      <div class="flex-col col-2 text-center pr-0">
+        <input class="stat-input" type="text" name="data.stats.{{statKey}}.value" value="{{stat.value}}"
+          data-stat="{{statKey}}" data-dtype="Number" />
       </div>
     </div>
+    <div>
+      <div class="ability list-alt-bkg">
+        {{#each stat.skills as |skill skillKey|}}
+        <div class="list-item px-2">
+          <div class="flex-row flex-ac bkg-apply">
+            <div class="flex-col col-10">
+              <p for="data.stats.{{statKey}}.skills.{{skillKey}}.value" data-label="{{stat.name}} {{skill.name}}"
+                data-stat="{{stat.value}}" data-skill="{{skill.value}}" class="rollable resource-label pl-2 text-primary">
+                {{skill.name}}</label>
+            </div>
+            <div class="flex-col col-2 text-center pr-0">
+              <input class="stat-input skill-input" type="text" name="data.stats.{{statKey}}.skills.{{skillKey}}.value"
+                value="{{skill.value}}" data-stat="{{statKey}}" data-skill="{{skillKey}}" data-dtype="Number" />
+            </div>
+          </div>
+        </div>
+        {{/each}}
+        {{#each stat.customSkills as |skill skillKey|}}
+        <div class="list-item px-2">
+          <div class="flex-row flex-ac bkg-apply">
+            <div class="flex-col col-10">
+              {{#if (and ../../owner ../../data.edit)}}
+              <div class="flex-row flex-ac">
+                <div>
+                  <button class="btn btn-icon btn-small btn-secondary remove-custom-skill" type="button"
+                    data-stat="{{statKey}}" data-skill="{{skillKey}}">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+                <div class="flex-col">
+                  <input type="text" name="data.stats.{{statKey}}.customSkills.{{skillKey}}.name" value="{{skill.name}}">
+                </div>
+              </div>
+              {{else}}
+              <p for="data.stats.{{statKey}}.customSkills.{{skillKey}}.value" data-label="{{stat.name}} {{skill.name}}"
+                data-stat="{{stat.value}}" data-skill="{{skill.value}}" class="rollable resource-label pl-2 text-primary">
+                {{skill.name}}</label>
+                {{/if}}
+            </div>
+            <div class="flex-col col-2 text-center pr-0">
+              <input class="stat-input skill-input" type="text"
+                name="data.stats.{{statKey}}.customSkills.{{skillKey}}.value" value="{{skill.value}}"
+                data-stat="{{statKey}}" data-skill="{{skillKey}}" data-dtype="Number" />
+            </div>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      {{#if ../data.edit}}
+      <div class="flex-row flex-ac">
+        <div class="flex-col pl-4">
+          <button class="btn btn-icon btn-secondary btn-small add-custom-skill" type="button" data-stat="{{statKey}}">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </div>
   {{/each}}
 </div>

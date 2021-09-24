@@ -1,3 +1,32 @@
 .item-form {
   font-family: $font-primary;
 }
+
+input, select, textarea {
+  background-color: color('secondary-light');
+  border-radius: 0;
+  width: 100%;
+}
+
+input, select {
+  // border: 0;
+  border: toRem(1px) solid color('secondary')
+}
+
+input, textarea {
+  font-family: $font-primary;
+  font-size: toRem(14px);
+}
+
+input {
+  vertical-align: middle;
+}
+
+textarea {
+  border: toRem(1px) solid color('secondary')
+}
+
+.notes-field {
+  font-size: toRem(16px);
+  height: toRem(350px);
+}

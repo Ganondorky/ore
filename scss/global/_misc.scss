@@ -14,6 +14,16 @@
   display: none;
 }
 
+.list-alt-bkg {
+  .list-item {
+    &:nth-child(odd) {
+      .bkg-apply {
+        background-color: color('accent');
+      }
+    }
+  }
+}
+
 .sheet nav.sheet-tabs{
   height: auto;
 }

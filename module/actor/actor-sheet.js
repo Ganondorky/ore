@@ -1,4 +1,4 @@
-import {objectReduce, objectSort} from '../../lib/helpers.js'
+import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.js'
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -80,6 +80,9 @@ import {objectReduce, objectSort} from '../../lib/helpers.js'
     html.find('.remove-quality').click(this._removeQuality.bind(this))
     html.find('.hit-box').click(this._changeHitBox.bind(this))
     html.find('.hit-box').on('mouseup', this._resetHitBox.bind(this))
+    html.find('.toggle-edit').click(this._toggleEdit.bind(this))
+    html.find('.add-custom-skill').click(this._addCustomSkill.bind(this))
+    html.find('.remove-custom-skill').click(this._removeCustomSkill.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -171,6 +174,10 @@ import {objectReduce, objectSort} from '../../lib/helpers.js'
     const r = new Roll(`${parseInt(dataset.stat)+parseInt(dataset.skill)}d10`)
     const roll = await r.evaluate({async: true})
 
+    if (game.dice3d) {
+      game.dice3d.showForRoll(r, game.user, true)
+    }
+
     const rawResults = roll.dice[0].results
       .reduce((results, result) => {
         return {
@@ -210,21 +217,6 @@ import {objectReduce, objectSort} from '../../lib/helpers.js'
     await ChatMessage.create(
       {content: message}
     )
-      
-    //let label = dataset.label ? `Rolling ${dataset.label}` : '';
-    // roll.roll().toMessage({
-    //   speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    //   flavor: label
-    // })
-    // if (dataset.roll) {
-    //   let roll = new Roll(dataset.roll, this.actor.data.data);
-    //   let label = dataset.label ? `Rolling ${dataset.label}` : '';
-    //   roll.roll().toMessage({
-    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    //     flavor: label
-    //   });
-    //}
-
   }
 
   async _removeQuality(event){
@@ -248,6 +240,45 @@ import {objectReduce, objectSort} from '../../lib/helpers.js'
     })
     await this.actor.update({
       [`data.qualities.${quality}.items`]: newData
+    })
+  }
+
+  async _toggleEdit(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.edit`]: !this.actor.data.data.edit
+    })
+  }
+
+  async _addCustomSkill(event){
+    event.preventDefault()
+    const { stat: statKey } = event.currentTarget.dataset
+    const currentCustomSkills = this.actor.data.data.stats[statKey].customSkills ?? {}
+    const newCustomSkills = {
+      ...currentCustomSkills,
+      [Object.keys(currentCustomSkills).length]: {
+        name: 'New SKill',
+        value: 1
+      }
+    }
+    await this.actor.update({
+      [`data.stats.${statKey}.-=customSkills`]: null
+    })
+    await this.actor.update({
+      [`data.stats.${statKey}.customSkills`]: newCustomSkills
+    })
+  }
+
+  async _removeCustomSkill(event){
+    event.preventDefault()
+    const { stat: statKey, skill: skillKey } = event.currentTarget.dataset
+    const currentCustomSkills = this.actor.data.data.stats[statKey].customSkills ?? {}
+    const newCustomSkills = objectReindexFilter(currentCustomSkills, (_, key) => key !== skillKey)
+    await this.actor.update({
+      [`data.stats.${statKey}.-=customSkills`]: null
+    })
+    await this.actor.update({
+      [`data.stats.${statKey}.customSkills`]: newCustomSkills
     })
   }
 }
