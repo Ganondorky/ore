@@ -46,6 +46,10 @@ Hooks.once('init', async function () {
     return val ? str : alt
   })
 
+  Handlebars.registerHelper('getLength', function (val) {
+    return val?.length ?? Object.keys(val)?.length ?? 0
+  })
+
   Handlebars.registerHelper('times', function (n, block) {
     let accum = ''
     for (let i = 0; i < n; i++)

@@ -1,4 +1,18 @@
 <div class="hit-locations ba-1-black pa-2">
+    <div class="flex-row flex-jsb">
+        <div class="flex-col  col-3">
+            <b>Location</b>
+        </div>
+        <div class="flex-col col-1">
+            <b>RNG</b>
+        </div>
+        <div class="flex-col col-1">
+            <b>ARM</b>
+        </div>
+        <div class="flex-col col-12">
+           <b>Wound Boxes</b>            
+        </div>
+    </div>
     {{#each data.hitLocations as |hitLocation hitLocationIndex|}}
         <div class="flex-row flex-jsb">
             <div class="flex-col  col-3">
@@ -11,14 +25,24 @@
                 <input type="text" name="data.hitLocations.{{hitLocationIndex}}.armor" value="{{hitLocation.armor}}">
             </div>
             <div class="flex-col col-12">
-                {{#each hitLocation.wounds as |wound woundIndex|}}
-                    <div
-                        class="hit-box ba-1-black {{ternary wound.blocked 'blocked' ''}} {{ternary wound.shock 'shock' ''}} {{ternary wound.kill 'kill' ''}}"
-                        data-hit-location="{{hitLocationIndex}}"
-                        data-wound="{{woundIndex}}"
-                    >
-                    </div>
-                {{/each}}
+                {{#unless (and ../owner ../data.edit)}}
+                    {{#each hitLocation.wounds as |wound woundIndex|}}
+                        <div
+                            class="hit-box ba-1-black {{ternary wound.blocked 'blocked' ''}} {{ternary wound.shock 'shock' ''}} {{ternary wound.kill 'kill' ''}}"
+                            data-hit-location="{{hitLocationIndex}}"
+                            data-wound="{{woundIndex}}"
+                        >
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <button class="btn btn-icon btn-small btn-secondary wound-decrement">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <input type="number" class="wound-count" value="{{getLength hitLocation.wounds}}">
+                    <button class="btn btn-icon btn-small btn-secondary wound-increment">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                {{/unless}}
             </div>
         </div>
     {{/each}}
