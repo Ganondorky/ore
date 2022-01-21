@@ -1,0 +1,17 @@
+.hit-box {
+    background-color: green;
+    cursor: pointer;
+    display: inline-block;
+    height: 1.5rem;
+    width: 1.5rem;
+
+    &.blocked {
+        background-color: black;
+    }
+    &.shock {
+        background-color: yellow;
+    }
+    &.kill {
+        background-color: red;
+    }
+}

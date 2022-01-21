@@ -3,9 +3,10 @@ export const preloadHandlebarsTemplates = async function () {
     'actor/partials/advantages',
     'actor/partials/descriptions',
     'actor/partials/esoterics',
+    'actor/partials/hit-locations',
     'actor/partials/items',
     'actor/partials/martials',
-    'actor/partials/stats',
+    'actor/partials/stats'
   ]
 
   return loadTemplates(

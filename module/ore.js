@@ -7,7 +7,7 @@ import { registerSettings } from "./settings/settings.js";
 import { preloadHandlebarsTemplates } from "./preloadTemplates.js";
 import oreHooks from "./oreHooks.js"
 
-Hooks.once('init', async function() {
+Hooks.once('init', async function () {
 
   game.ore = {
     OneRollEngineActor,
@@ -28,7 +28,7 @@ Hooks.once('init', async function() {
   Items.registerSheet("ore", OneRollEngineItemSheet, { makeDefault: true });
 
   // If you need to add Handlebars helpers, here are a few useful examples:
-  Handlebars.registerHelper('concat', function() {
+  Handlebars.registerHelper('concat', function () {
     var outStr = '';
     for (var arg in arguments) {
       if (typeof arguments[arg] != 'object') {
@@ -38,14 +38,41 @@ Hooks.once('init', async function() {
     return outStr;
   });
 
-  Handlebars.registerHelper('toLowerCase', function(str) {
+  Handlebars.registerHelper('toLowerCase', function (str) {
     return str.toLowerCase();
   });
 
   Handlebars.registerHelper('ifString', function (val, str, alt) {
     return val ? str : alt
   })
-  
+
+  Handlebars.registerHelper('getLength', function (val) {
+    return val?.length ?? Object.keys(val)?.length ?? 0
+  })
+
+  Handlebars.registerHelper('times', function (n, block) {
+    let accum = ''
+    for (let i = 0; i < n; i++)
+      accum += block.fn(i)
+    return accum;
+  })
+
+  Handlebars.registerHelper({
+    '??': (a, b) => a ?? b,
+    and: (a, b) => a && b,
+    eq: (a, b) => a === b,
+    gt: (a, b) => a > b,
+    gte: (a, b) => a >= b,
+    lt: (a, b) => a < b,
+    lte: (a, b) => a <= b,
+    minus: (a, b) => (+a) - (+b),
+    ne: (a, b) => a !== b,
+    not: a => !a,
+    or: (a, b) => a || b,
+    plus: (a, b) => +a + b,
+    ternary: (conditional, a, b) => conditional ? a : b
+  })
+
   preloadHandlebarsTemplates()
 
   oreHooks()

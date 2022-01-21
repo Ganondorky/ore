@@ -1,8 +1,9 @@
+import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.js'
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
-export class OneRollEngineActorSheet extends ActorSheet {
+  export class OneRollEngineActorSheet extends ActorSheet {
 
   /** @override */
   static get defaultOptions() {
@@ -11,7 +12,7 @@ export class OneRollEngineActorSheet extends ActorSheet {
       template: "systems/ore/templates/actor/actor-sheet.html",
       width: 600,
       height: 600,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "stats" }]
     });
   }
 
@@ -20,7 +21,7 @@ export class OneRollEngineActorSheet extends ActorSheet {
   /** @override */
   getData() {
     const data = super.getData()
-
+    console.log(data)
     return data
   }
 
@@ -73,15 +74,75 @@ export class OneRollEngineActorSheet extends ActorSheet {
 
       $stat.val(newValue)
     })
+
+    html.find('.add-quality').click(this._addQuality.bind(this))
+
+    html.find('.remove-quality').click(this._removeQuality.bind(this))
+    html.find('.hit-box').click(this._changeHitBox.bind(this))
+    html.find('.hit-box').on('mouseup', this._resetHitBox.bind(this))
+    html.find('.toggle-edit').click(this._toggleEdit.bind(this))
+    html.find('.add-custom-skill').click(this._addCustomSkill.bind(this))
+    html.find('.remove-custom-skill').click(this._removeCustomSkill.bind(this))
+    html.find('.wound-increment').click(this._incrementWound.bind(this))
+    html.find('.wound-decrement').click(this._decrementWound.bind(this))
+    html.find('.wound-count').change(this._changeWound.bind(this))
   }
 
   /* -------------------------------------------- */
+  
+  async _addQuality(event) {
+    event.preventDefault()
+    const $qualityButton = $(event.currentTarget)
+    const quality = $qualityButton.data('quality')
+    const currentQualityItems = this.actor.data.data.qualities[quality].items ?? {}
 
-  /**
-   * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
-   * @param {Event} event   The originating click event
-   * @private
-   */
+    await this.actor.update({
+      [`data.qualities.${quality}.items`]: {
+        ...currentQualityItems,
+        [Object.keys(currentQualityItems).length]: {
+          name: 'Brought to you by Carls Jr',
+          description:''        
+        }
+      }
+    })
+  }
+
+  async _changeHitBox(event) {
+    event.preventDefault()
+    const $hitbox = $(event.currentTarget)
+    const newWound = {
+      blocked: $hitbox.hasClass('kill'),
+      kill: $hitbox.hasClass('shock'),
+      shock: !$hitbox.hasClass('kill') && !$hitbox.hasClass('shock') && !$hitbox.hasClass('blocked')
+    }
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+
+  }
+
+  async _resetHitBox(event) {
+    event.preventDefault()
+
+    if (event.button === 2) {
+      const $hitbox = $(event.currentTarget)
+      const newWound = {
+        blocked: false,
+        kill: false,
+        shock: false
+      }
+      await this.actor.update({
+        [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+      })
+      await this.actor.update({
+        [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+      })
+    }
+  }
+
   _onItemCreate(event) {
     event.preventDefault();
     const header = event.currentTarget;
@@ -109,26 +170,149 @@ export class OneRollEngineActorSheet extends ActorSheet {
    * @param {Event} event   The originating click event
    * @private
    */
-  _onRoll(event) {
+  async _onRoll(event) {
     event.preventDefault();
     const element = event.currentTarget;
     const dataset = element.dataset;
-    const roll = new Roll(`${parseInt(dataset.stat)+parseInt(dataset.skill)}d10`)
+    const r = new Roll(`${parseInt(dataset.stat)+parseInt(dataset.skill)}d10`)
+    const roll = await r.evaluate({async: true})
 
-    let label = dataset.label ? `Rolling ${dataset.label}` : '';
-    roll.roll().toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      flavor: label
+    if (game.dice3d) {
+      game.dice3d.showForRoll(r, game.user, true)
+    }
+
+    const rawResults = roll.dice[0].results
+      .reduce((results, result) => {
+        return {
+          ...results,
+          [result.result]: (results[result.result] ?? 0) + 1
+        }
+      }, {})
+
+    const results = objectReduce(rawResults, (newResults, amount, value) => {
+      if (amount > 1) {
+        return {
+          ...newResults,
+          sets: [
+            ...(newResults.sets ?? []),
+            { value, amount }
+          ]
+        }
+      }
+
+      return {
+        ...newResults,
+        waste: [
+          ...(newResults.waste ?? []),
+          value
+        ]
+      }
+    }, {})
+
+    results.sets?.sort((a, b) => b.value - a.value)
+    results.waste?.sort((a, b) => b - a)
+
+    const message = await renderTemplate('systems/ore/templates/chat/roll-result.html', {
+      rollResults: results,
+      speaker:game.user
     })
-    // if (dataset.roll) {
-    //   let roll = new Roll(dataset.roll, this.actor.data.data);
-    //   let label = dataset.label ? `Rolling ${dataset.label}` : '';
-    //   roll.roll().toMessage({
-    //     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    //     flavor: label
-    //   });
-    //}
 
+    await ChatMessage.create(
+      {content: message}
+    )
+  }
+
+  async _removeQuality(event){
+    event.preventDefault()
+    const $qualityButton = $(event.currentTarget)
+    const quality = $qualityButton.data('quality')
+    const qualityItem = $qualityButton.data('qualityItem')
+    const currentQualityItems = this.actor.data.data.qualities[quality].items ?? {}
+
+    const newData = Object.keys(currentQualityItems)
+      .reduce((acc, currentKey) => {
+        console.log(+currentKey, qualityItem, +currentKey !== qualityItem)
+        if (+currentKey !== qualityItem) {
+          return { ...acc, [Object.keys(acc).length]: currentQualityItems[currentKey] }
+        }
+
+        return acc
+      }, {})
+    await this.actor.update({
+      [`data.qualities.${quality}.-=items`]: null
+    })
+    await this.actor.update({
+      [`data.qualities.${quality}.items`]: newData
+    })
+  }
+
+  async _toggleEdit(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.edit`]: !this.actor.data.data.edit
+    })
+  }
+
+  async _addCustomSkill(event){
+    event.preventDefault()
+    const { stat: statKey } = event.currentTarget.dataset
+    const currentCustomSkills = this.actor.data.data.stats[statKey].customSkills ?? {}
+    const newCustomSkills = {
+      ...currentCustomSkills,
+      [Object.keys(currentCustomSkills).length]: {
+        name: 'New SKill',
+        value: 1
+      }
+    }
+    await this.actor.update({
+      [`data.stats.${statKey}.-=customSkills`]: null
+    })
+    await this.actor.update({
+      [`data.stats.${statKey}.customSkills`]: newCustomSkills
+    })
+  }
+
+  async _removeCustomSkill(event){
+    event.preventDefault()
+    const { stat: statKey, skill: skillKey } = event.currentTarget.dataset
+    const currentCustomSkills = this.actor.data.data.stats[statKey].customSkills ?? {}
+    const newCustomSkills = objectReindexFilter(currentCustomSkills, (_, key) => key !== skillKey)
+    await this.actor.update({
+      [`data.stats.${statKey}.-=customSkills`]: null
+    })
+    await this.actor.update({
+      [`data.stats.${statKey}.customSkills`]: newCustomSkills
+    })
+  }
+
+  async _changeWound(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+  }
+
+  async _incrementWound(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+  }
+
+  async _decrementWound(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
   }
 
 }

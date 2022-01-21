@@ -1,0 +1,57 @@
+<div class="hit-locations ba-1-black pa-2">
+    <div class="flex-row flex-jsb">
+        <div class="flex-col  col-3">
+            <b>Location</b>
+        </div>
+        <div class="flex-col col-1">
+            <b>RNG</b>
+        </div>
+        <div class="flex-col col-1">
+            <b>ARM</b>
+        </div>
+        <div class="flex-col col-12">
+           <b>Wound Boxes</b>            
+        </div>
+    </div>
+    {{#each data.hitLocations as |hitLocation hitLocationIndex|}}
+        <div class="flex-row flex-jsb">
+            <div class="flex-col  col-3">
+                <input type="text" name="data.hitLocations.{{hitLocationIndex}}.name" value="{{hitLocation.name}}">
+            </div>
+            <div class="flex-col text-center col-1">
+                <input type="text" name="data.hitLocations.{{hitLocationIndex}}.range" value="{{hitLocation.range}}">
+            </div>
+            <div class="flex-col text-center col-1">
+                <input type="text" name="data.hitLocations.{{hitLocationIndex}}.armor" value="{{hitLocation.armor}}">
+            </div>
+            <div class="flex-col col-12">
+                {{#unless (and ../owner ../data.edit)}}
+                    {{#each hitLocation.wounds as |wound woundIndex|}}
+                        <div
+                            class="hit-box ba-1-black {{ternary wound.blocked 'blocked' ''}} {{ternary wound.shock 'shock' ''}} {{ternary wound.kill 'kill' ''}}"
+                            data-hit-location="{{hitLocationIndex}}"
+                            data-wound="{{woundIndex}}"
+                        >
+                        </div>
+                    {{/each}}
+                {{else}}
+                <div class="flex-row flex-ac">
+                    <div class="flex-col">
+                        <button data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-decrement">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <div class="text-center flex-col col-2">
+                        <input data-hit-location="{{hitLocationIndex}}" type="number" class="wound-count" value="{{getLength hitLocation.wounds}}">
+                    </div>
+                    <div class="flex-col">
+                        <button data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-increment">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                {{/unless}}
+            </div>
+        </div>
+    {{/each}}
+</div>

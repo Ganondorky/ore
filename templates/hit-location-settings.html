@@ -1,0 +1,47 @@
+<form class="{{cssClass}}" autocomplete="off" style="background-color: #fff;">
+    <main>
+        <section
+        class="attributes flex-container"
+        id="setting-specific"
+        >
+        <div class="flex-row flex-ac">
+            <h2 class="section-heading">{{localize 'ORE.HitLocations'}}</h2>
+            <div class="ml-3">
+            <button class="btn btn-icon btn-primary add-hit-location">
+                <i class="fa fa-plus"></i>
+            </button>
+            </div>
+        </div>
+        <div>
+            {{#each hitLocations as |hitLocation hitLocationKey|}}
+            <div class="hit-location flex flex-wrap px-2 my-3 ba-2-black">
+                <div class="flex-col my-2 col-12">
+                <label>{{localize 'ORE.RemoveHitLocation'}}</label>
+                <button class="btn btn-icon btn-secondary remove-item" data-setting="hitLocations" data-item-key="{{hitLocationKey}}" data-item-name="{{hitLocation.name}}">
+                    <i class="fa fa-minus"></i>
+                </button>
+                </div>
+                <div class="flex-col col-4">
+                <label>{{localize 'ORE.Name'}}</label>
+                <div>
+                    <input type="text" name="hitLocations.{{hitLocationKey}}.name" value="{{hitLocation.name}}">
+                </div>
+                </div>
+                <div class="flex-col col-4">
+                    <label>{{localize 'ORE.Range'}}</label>
+                    <div>
+                        <input type="text" name="hitLocations.{{hitLocationKey}}.range" value="{{hitLocation.range}}">
+                    </div>
+                </div>
+                <div class="flex-col col-4">
+                    <label>{{localize 'ORE.Wounds'}}</label>
+                    <div>
+                        <input type="number" name="hitLocations.{{hitLocationKey}}.wounds" value="{{hitLocation.wounds}}">
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        </section>
+    </main>
+</form>

@@ -1,0 +1,28 @@
+<div>
+    {{#if rollResults.sets}}
+        <p>{{localize 'ORE.Sets'}}</p>
+        {{#each rollResults.sets as |rollResult|}}
+            <div class="flex flex-wrap">
+                {{#times rollResult.amount}}
+                    <div class="die-icon-wrapper my-1 flex-col px-0">
+                        <div class="die-icon lg d10">
+                            <div class="value">{{rollResult.value}}</div>
+                        </div>
+                    </div>
+                {{/times}}
+            </div>
+        {{/each}}
+    {{/if}}
+    {{#if rollResults.waste}}
+        <p>{{localize 'ORE.Waste'}}</p>
+        <div class="flex flex-wrap">
+            {{#each rollResults.waste as |rollResult|}}
+                <div class="die-icon-wrapper my-1 flex-col px-0">
+                    <div class="die-icon lg d10">
+                        <div class="value">{{rollResult}}</div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{/if}}
+</div>
