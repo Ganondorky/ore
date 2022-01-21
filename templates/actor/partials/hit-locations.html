@@ -18,10 +18,10 @@
             <div class="flex-col  col-3">
                 <input type="text" name="data.hitLocations.{{hitLocationIndex}}.name" value="{{hitLocation.name}}">
             </div>
-            <div class="flex-col col-1">
+            <div class="flex-col text-center col-1">
                 <input type="text" name="data.hitLocations.{{hitLocationIndex}}.range" value="{{hitLocation.range}}">
             </div>
-            <div class="flex-col col-1">
+            <div class="flex-col text-center col-1">
                 <input type="text" name="data.hitLocations.{{hitLocationIndex}}.armor" value="{{hitLocation.armor}}">
             </div>
             <div class="flex-col col-12">
@@ -35,13 +35,21 @@
                         </div>
                     {{/each}}
                 {{else}}
-                    <button class="btn btn-icon btn-small btn-secondary wound-decrement">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <input type="number" class="wound-count" value="{{getLength hitLocation.wounds}}">
-                    <button class="btn btn-icon btn-small btn-secondary wound-increment">
-                        <i class="fa fa-plus"></i>
-                    </button>
+                <div class="flex-row flex-ac">
+                    <div class="flex-col">
+                        <button data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-decrement">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <div class="text-center flex-col col-2">
+                        <input data-hit-location="{{hitLocationIndex}}" type="number" class="wound-count" value="{{getLength hitLocation.wounds}}">
+                    </div>
+                    <div class="flex-col">
+                        <button data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-increment">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
                 {{/unless}}
             </div>
         </div>

@@ -83,6 +83,9 @@ import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.j
     html.find('.toggle-edit').click(this._toggleEdit.bind(this))
     html.find('.add-custom-skill').click(this._addCustomSkill.bind(this))
     html.find('.remove-custom-skill').click(this._removeCustomSkill.bind(this))
+    html.find('.wound-increment').click(this._incrementWound.bind(this))
+    html.find('.wound-decrement').click(this._decrementWound.bind(this))
+    html.find('.wound-count').change(this._changeWound.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -281,4 +284,35 @@ import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.j
       [`data.stats.${statKey}.customSkills`]: newCustomSkills
     })
   }
+
+  async _changeWound(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+  }
+
+  async _incrementWound(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+  }
+
+  async _decrementWound(event){
+    event.preventDefault()
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+    })
+    await this.actor.update({
+      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+    })
+  }
+
 }
