@@ -1,5 +1,5 @@
 export default async (data) => {
-  const actor = new Actor(data)
+  const actor = data
   const workingData = duplicate(data.data)
   const characterData = workingData.data
 

@@ -47,7 +47,7 @@ Hooks.once('init', async function () {
   })
 
   Handlebars.registerHelper('getLength', function (val) {
-    return val?.length ?? Object.keys(val)?.length ?? 0
+    return val?.length ?? Object.keys(val ?? {})?.length ?? 0
   })
 
   Handlebars.registerHelper('times', function (n, block) {

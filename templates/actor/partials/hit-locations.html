@@ -37,7 +37,7 @@
                 {{else}}
                 <div class="flex-row flex-ac">
                     <div class="flex-col">
-                        <button data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-decrement">
+                        <button  {{ternary (lte (getLength hitLocation.wounds) 0) 'disabled' ''}} data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-decrement">
                             <i class="fa fa-minus"></i>
                         </button>
                     </div>
@@ -45,7 +45,7 @@
                         <input data-hit-location="{{hitLocationIndex}}" type="number" class="wound-count" value="{{getLength hitLocation.wounds}}">
                     </div>
                     <div class="flex-col">
-                        <button data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-increment">
+                        <button {{ternary (gte (getLength hitLocation.wounds) 20) 'disabled' ''}} data-hit-location="{{hitLocationIndex}}" class="btn btn-icon btn-small btn-secondary wound-increment">
                             <i class="fa fa-plus"></i>
                         </button>
                     </div>

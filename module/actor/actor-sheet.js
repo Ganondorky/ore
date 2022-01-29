@@ -1,4 +1,4 @@
-import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.js'
+import {getLength, objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.js'
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -85,7 +85,7 @@ import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.j
     html.find('.remove-custom-skill').click(this._removeCustomSkill.bind(this))
     html.find('.wound-increment').click(this._incrementWound.bind(this))
     html.find('.wound-decrement').click(this._decrementWound.bind(this))
-    html.find('.wound-count').change(this._changeWound.bind(this))
+    html.find('.wound-count').change(this._changeWoundAmount.bind(this))
   }
 
   /* -------------------------------------------- */
@@ -285,33 +285,81 @@ import {objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.j
     })
   }
 
-  async _changeWound(event){
+  async _changeWoundAmount(event){
     event.preventDefault()
-    await this.actor.update({
-      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
-    })
-    await this.actor.update({
-      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
-    })
+    const newAmount = +event.target.value > -1 ? +event.target.value : 0
+    if (+event.target.value < 0 === 0) {
+      this.render(true)
+      return
+    }
+    const currentHitLocation = event.currentTarget.dataset.hitLocation
+    const currentWounds = getProperty(this.actor.data, `data.hitLocations.${currentHitLocation}.wounds`)
+    const currentAmount = Object.keys(currentWounds).length
+    const changeAmount = newAmount - currentAmount
+    const newWound = {
+      blocked: false,
+      kill: false,
+      shock: false
+    }
+    if (changeAmount > 0) {
+      const addAmount = changeAmount + currentAmount > 20 ? 20 - currentAmount : changeAmount
+      if (addAmount < 1) {
+        this.render(true)
+        return
+      }
+      const newWounds = {}
+      for (let i = 0; i < addAmount; i++) {
+        newWounds[currentAmount + i] = newWound
+      }
+      await this.actor.update({
+        [`data.hitLocations.${currentHitLocation}.wounds`]: { ...currentWounds, ...newWounds }
+      })
+    } else if (changeAmount < 0) {
+      const removeAmount = changeAmount * -1
+      const newWounds = objectReindexFilter(currentWounds, (value, key) => key < (currentAmount - removeAmount))
+      await this.actor.update({
+        [`data.hitLocations.${currentHitLocation}.-=wounds`]: null
+      })
+      await this.actor.update({
+        [`data.hitLocations.${currentHitLocation}.wounds`]: newWounds
+      })
+
+    }
+  
   }
 
   async _incrementWound(event){
     event.preventDefault()
+    const currentHitLocation = event.currentTarget.dataset.hitLocation
+    const currentWounds = getProperty(this.actor.data, `data.hitLocations.${currentHitLocation}.wounds`)
+    const currentAmount = Object.keys(currentWounds).length
+    if (currentAmount >= 20) return
+    const newWound = {
+      blocked: false,
+      kill: false,
+      shock: false
+    }
     await this.actor.update({
-      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
-    })
-    await this.actor.update({
-      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+      [`data.hitLocations.${currentHitLocation}.wounds`]: { ...currentWounds, [currentAmount]: newWound }
     })
   }
 
   async _decrementWound(event){
     event.preventDefault()
+    const currentHitLocation = event.currentTarget.dataset.hitLocation
+    const currentWounds = getProperty(this.actor.data, `data.hitLocations.${currentHitLocation}.wounds`)
+    const currentAmount = Object.keys(currentWounds).length
+    if (currentAmount <= 0) return
+    const newWound = {
+      blocked: false,
+      kill: false,
+      shock: false
+    }
     await this.actor.update({
-      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.-=${$hitbox.data('wound')}`]: null
+      [`data.hitLocations.${currentHitLocation}.-=wounds`]: null
     })
     await this.actor.update({
-      [`data.hitLocations.${$hitbox.data('hitLocation')}.wounds.${$hitbox.data('wound')}`]: newWound
+      [`data.hitLocations.${currentHitLocation}.wounds`]: objectReindexFilter(currentWounds, (_, key) => key < currentAmount - 1)
     })
   }
 
