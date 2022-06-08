@@ -1,4 +1,4 @@
-import {removeItem} from '../scripts/settingHelpers.js'
+import {removeItem, reorderItem} from '../scripts/settingHelpers.js'
 export default class HitLocationSettings extends FormApplication {
   constructor(object = {}, options = { parent: null }) {
     super(object, options);
@@ -32,6 +32,7 @@ export default class HitLocationSettings extends FormApplication {
     // html.find('button.display-toggle').click(event => this._displayToggle(event, html))
     html.find('#submit').click(() => this.close())
     removeItem.call(this, html)
+    reorderItem.call(this, html)
   }
 
   getData () {

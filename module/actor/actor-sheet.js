@@ -1,4 +1,5 @@
 import {getLength, objectReduce, objectReindexFilter, objectSort} from '../../lib/helpers.js'
+import {removeItems, reorderItem} from '../scripts/sheethelpers.js'
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -76,7 +77,7 @@ import {getLength, objectReduce, objectReindexFilter, objectSort} from '../../li
     })
 
     html.find('.add-quality').click(this._addQuality.bind(this))
-
+    html.find('.add-hit-location').click(this._addHitLocation.bind(this))
     html.find('.remove-quality').click(this._removeQuality.bind(this))
     html.find('.hit-box').click(this._changeHitBox.bind(this))
     html.find('.hit-box').on('mouseup', this._resetHitBox.bind(this))
@@ -86,10 +87,36 @@ import {getLength, objectReduce, objectReindexFilter, objectSort} from '../../li
     html.find('.wound-increment').click(this._incrementWound.bind(this))
     html.find('.wound-decrement').click(this._decrementWound.bind(this))
     html.find('.wound-count').change(this._changeWoundAmount.bind(this))
+    reorderItem.call(this, html)
+    removeItems.call(this, html)
   }
 
   /* -------------------------------------------- */
   
+  async _addHitLocation(event) {
+    event.preventDefault()
+    const currentHitLocations = this.actor.data.data.hitLocations ?? {}
+    const wounds = {}
+    for(let i = 0; i < 5; i++){
+      wounds[i] = {
+        blocked: false,
+        kill: false,
+        shock: false
+      }
+    }
+    await this.actor.update({
+      ['data.hitLocations']: {
+        ...currentHitLocations,
+        [Object.keys(currentHitLocations).length]: {
+          name: 'The thirst mutilator',
+          range: 'tbd',
+          armor: 0,
+          wounds
+        }
+      }
+    })
+  }
+
   async _addQuality(event) {
     event.preventDefault()
     const $qualityButton = $(event.currentTarget)
@@ -350,11 +377,6 @@ import {getLength, objectReduce, objectReindexFilter, objectSort} from '../../li
     const currentWounds = getProperty(this.actor.data, `data.hitLocations.${currentHitLocation}.wounds`)
     const currentAmount = Object.keys(currentWounds).length
     if (currentAmount <= 0) return
-    const newWound = {
-      blocked: false,
-      kill: false,
-      shock: false
-    }
     await this.actor.update({
       [`data.hitLocations.${currentHitLocation}.-=wounds`]: null
     })

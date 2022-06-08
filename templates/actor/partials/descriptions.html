@@ -1,0 +1,47 @@
+<div class="flex-row">
+    <div class="flex-col col-4">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>    
+    </div>
+    <div class="flex-col col-8">
+        {{#each data.qualities as |quality qualityKey|}}
+        <div class="resource mb-2">
+            <label for="data.qualities.{{qualityKey}}" class="text-secondary resource-label">{{quality.name}}</label>
+            {{#if (and ../owner ../data.edit)}}
+                <button class="add-quality btn btn-icon btn-primary btn-small" data-quality="{{qualityKey}}">
+                    <i class="fa fa-plus"></i>
+                </button>
+            {{/if}}
+            <div>
+                {{#each quality.items as |qualityItem qualityItemKey|}}
+                <div class="quality-item">
+                    <div class="pl-2 mt-2">
+                        {{#if (and ../../owner ../../data.edit)}}
+                            <label class="resource-label text-primary">{{localize 'ORE.Name'}}</label>
+                            <button class="btn btn-icon btn-secondary btn-small remove-quality" data-quality="{{qualityKey}}"
+                            data-quality-item="{{qualityItemKey}}">
+                            <i class="fa fa-minus"></i>
+                            </button>
+                            <input type="text" name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.name"
+                            value="{{qualityItem.name}}">
+                        {{else}}
+                            <label class="resource-label text-primary">{{qualityItem.name}}</label>
+                        {{/if}}
+                    </div>
+                    <div class="pl-2 mt-2">
+                        {{#if (and ../../owner ../../data.edit)}}
+                            <label class="resource-label text-primary">{{localize 'ORE.Description'}}</label>
+                            <textarea name="data.qualities.{{qualityKey}}.items.{{qualityItemKey}}.description">{{qualityItem.description}}</textarea>
+                        {{else}}
+                            <p>{{qualityItem.description}}</p>
+                        {{/if}}
+                    </div>
+                    {{#if (lt (plus qualityItemKey 1) (getLength quality.items))}}
+                        <div class="my-2 separator"></div>
+                    {{/if}}
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
