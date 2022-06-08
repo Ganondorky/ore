@@ -14,6 +14,12 @@
         </div>
         <div>
             {{#each hitLocations as |hitLocation hitLocationKey|}}
+            {{> "systems/ore/templates/reorder.html"
+                class="flex-col pa-0"
+                path=""
+                currentIndex=hitLocationKey
+                setting="hitLocations"
+            }}
             <div class="hit-location flex flex-wrap px-2 my-3 ba-2-black">
                 <div class="flex-col my-2 col-12">
                 <label>{{localize 'ORE.RemoveHitLocation'}}</label>

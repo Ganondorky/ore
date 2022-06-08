@@ -2216,12 +2216,21 @@ input {
   padding: 0.5rem;
 }
 
+.separator {
+  width: 100%;
+  border-top: 1px solid #dbc0a6;
+}
+
 .hide {
   display: none;
 }
 
 .list-alt-bkg .list-item:nth-child(odd) .bkg-apply {
   background-color: #dbc0a6;
+}
+
+.profile-img {
+  max-height: 200px;
 }
 
 .sheet nav.sheet-tabs {

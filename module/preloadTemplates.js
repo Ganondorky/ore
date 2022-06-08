@@ -6,7 +6,8 @@ export const preloadHandlebarsTemplates = async function () {
     'actor/partials/hit-locations',
     'actor/partials/items',
     'actor/partials/martials',
-    'actor/partials/stats'
+    'actor/partials/stats',
+    'reorder'
   ]
 
   return loadTemplates(
